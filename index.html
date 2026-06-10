@@ -529,21 +529,12 @@
         </ul>
       </div>
       <div class="reveal">
-        <div class="diag-form-wrap">
-          <div id="form-content">
-            <h3 class="form-title">Commence ici</h3>
-            <p class="form-sub">Gratuit · Résultat immédiat · Sans spam</p>
-            <div class="form-group">
-              <label>Ton prénom</label>
-              <input type="text" id="f-name" placeholder="Marie">
-            </div>
-            <div class="form-group">
-              <label>Ton email</label>
-              <input type="email" id="f-email" placeholder="marie@email.com">
-            </div>
-            <button class="btn-form" id="submitDiag">Démarrer mon diagnostic →</button>
-            <p class="form-note">Aucun spam · Résultat immédiat · 5 minutes</p>
-          </div>
+        <div class="diag-form-wrap" style="text-align:center;">
+          <div style="font-size:3rem; margin-bottom:1rem;">🧭</div>
+          <h3 class="form-title" style="margin-bottom:0.75rem;">Prêt(e) à te découvrir ?</h3>
+          <p class="form-sub" style="margin-bottom:2rem;">22 questions. Un profil unique. Un plan d'action personnalisé.<br>Résultat immédiat — sans attendre.</p>
+          <a href="diagnostic.html" class="btn-form" style="display:block; text-decoration:none; text-align:center;">Démarrer mon diagnostic gratuit →</a>
+          <p class="form-note" style="margin-top:1rem;">Gratuit · 5 minutes · Sans spam</p>
         </div>
       </div>
     </div>
@@ -614,21 +605,6 @@
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
     // Form
-    document.getElementById('submitDiag').addEventListener('click', async () => {
-      const name = document.getElementById('f-name').value.trim();
-      const email = document.getElementById('f-email').value.trim();
-      if (!name || !email) { alert('Merci de renseigner ton prénom et ton email.'); return; }
-      const btn = document.getElementById('submitDiag');
-      btn.textContent = 'Chargement...'; btn.disabled = true;
-      try {
-        await fetch('https://formspree.io/f/xpqejwpa', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, source: 'page-principale' })
-        });
-      } catch(e) {}
-      window.location.href = `diagnostic.html?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
-    });
   </script>
 </body>
 </html>
