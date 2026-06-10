@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Diagnostic CustomYourLife — Découvre ton profil d'entrepreneur et pourquoi tu es bloqué malgré ton potentiel.">
+  <title>Diagnostic | CustomYourLife — Découvre ton profil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F7F4EF; --bg2: #EEE9E0; --ink: #1C1A17; --ink2: #4A4640; --ink3: #8A847C;
+      --ember: #C45E2A; --ember-light: #E8845A; --ember-pale: #F5DDD0; --white: #FDFCFA;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--ink); overflow-x: hidden; line-height: 1.6; min-height: 100vh; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 6vw;
+      background: rgba(247,244,239,0.95); backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(28,26,23,0.08);
+    }
+    .logo { font-family: var(--serif); font-weight: 700; font-size: 1.25rem; color: var(--ink); text-decoration: none; line-height: 1; }
+    .logo span { display: block; font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ember); font-weight: 400; margin-top: 0.15rem; }
+
+    /* HERO DIAGNOSTIC */
+    .diag-hero {
+      padding: 8rem 6vw 4rem;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .diag-tag { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ember); margin-bottom: 1rem; }
+    .diag-hero h1 { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.2; font-weight: 700; margin-bottom: 1rem; }
+    .diag-hero h1 em { font-style: italic; color: var(--ember); }
+    .diag-hero p { font-size: 1rem; color: var(--ink2); max-width: 520px; margin: 0 auto 2rem; font-weight: 300; line-height: 1.8; }
+    .diag-stats { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .diag-stat { text-align: center; }
+    .diag-stat strong { display: block; font-family: var(--serif); font-size: 1.6rem; color: var(--ember); }
+    .diag-stat span { font-size: 0.75rem; color: var(--ink3); font-family: var(--mono); letter-spacing: 0.08em; }
+
+    /* LEAD CAPTURE */
+    #step-lead {
+      max-width: 480px; margin: 0 auto;
+      background: var(--white); padding: 2.5rem;
+      border: 1px solid rgba(28,26,23,0.08);
+      border-top: 3px solid var(--ember);
+    }
+    .lead-title { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 0.5rem; font-weight: 600; }
+    .lead-sub { font-size: 0.85rem; color: var(--ink3); margin-bottom: 1.5rem; line-height: 1.6; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
+    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+    .fg label { display: block; font-size: 0.72rem; font-weight: 500; color: var(--ink2); margin-bottom: 0.3rem; letter-spacing: 0.06em; text-transform: uppercase; font-family: var(--mono); }
+    .fg input { width: 100%; padding: 0.75rem 1rem; border: 1px solid rgba(28,26,23,0.15); background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 0.9rem; outline: none; transition: border-color 0.2s; border-radius: 2px; }
+    .fg input:focus { border-color: var(--ember); }
+    .fg input::placeholder { color: var(--ink3); }
+    .btn-start { width: 100%; padding: 1rem; background: var(--ember); color: var(--white); font-weight: 500; font-size: 1rem; border: none; cursor: pointer; border-radius: 2px; transition: background 0.2s; font-family: var(--sans); margin-top: 0.75rem; letter-spacing: 0.03em; }
+    .btn-start:hover { background: var(--ember-light); }
+    .lead-note { font-size: 0.72rem; color: var(--ink3); text-align: center; margin-top: 0.75rem; font-family: var(--mono); }
+
+    /* QUESTIONNAIRE */
+    #step-quiz { display: none; max-width: 680px; margin: 0 auto; padding: 0 0 4rem; }
+
+    .progress-wrap { margin-bottom: 2.5rem; }
+    .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+    .progress-label { font-family: var(--mono); font-size: 0.68rem; color: var(--ink3); letter-spacing: 0.1em; }
+    .progress-num { font-family: var(--mono); font-size: 0.68rem; color: var(--ember); }
+    .progress-bar { height: 3px; background: rgba(28,26,23,0.1); border-radius: 2px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--ember); transition: width 0.4s ease; border-radius: 2px; }
+
+    .section-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(28,26,23,0.08); }
+    .section-tag { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ember); margin-bottom: 0.4rem; }
+    .section-title { font-family: var(--serif); font-size: 1.2rem; color: var(--ink2); font-weight: 400; font-style: italic; }
+
+    .question-block { margin-bottom: 2.5rem; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .question-text { font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 1rem; line-height: 1.6; }
+    .question-num { font-family: var(--mono); font-size: 0.65rem; color: var(--ember); margin-bottom: 0.4rem; }
+    .options { display: flex; flex-direction: column; gap: 0.6rem; }
+    .option {
+      display: flex; align-items: center; gap: 0.85rem;
+      padding: 0.85rem 1rem;
+      border: 1px solid rgba(28,26,23,0.12);
+      background: var(--white); cursor: pointer;
+      transition: all 0.2s; border-radius: 2px;
+      font-size: 0.9rem; color: var(--ink2); line-height: 1.5;
+    }
+    .option:hover { border-color: var(--ember); background: var(--ember-pale); color: var(--ink); }
+    .option.selected { border-color: var(--ember); background: var(--ember-pale); color: var(--ink); font-weight: 500; }
+    .option-letter {
+      width: 1.5rem; height: 1.5rem; flex-shrink: 0;
+      border: 1px solid rgba(28,26,23,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 0.65rem;
+      color: var(--ink3); transition: all 0.2s; border-radius: 2px;
+    }
+    .option.selected .option-letter { background: var(--ember); border-color: var(--ember); color: var(--white); }
+
+    .nav-btns { display: flex; gap: 1rem; margin-top: 2.5rem; }
+    .btn-prev { padding: 0.85rem 1.5rem; border: 1px solid rgba(28,26,23,0.15); background: transparent; color: var(--ink2); font-family: var(--sans); font-size: 0.9rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; }
+    .btn-prev:hover { border-color: var(--ink); color: var(--ink); }
+    .btn-next { flex: 1; padding: 0.85rem; background: var(--ember); color: var(--white); font-family: var(--sans); font-size: 0.95rem; font-weight: 500; border: none; cursor: pointer; border-radius: 2px; transition: background 0.2s; }
+    .btn-next:hover { background: var(--ember-light); }
+    .btn-next:disabled { background: rgba(28,26,23,0.15); color: var(--ink3); cursor: not-allowed; }
+
+    /* RÉSULTAT */
+    #step-result { display: none; max-width: 680px; margin: 0 auto; padding: 0 0 5rem; animation: fadeIn 0.6s ease; }
+    .result-header { text-align: center; padding: 3rem 2rem; background: var(--ink); color: var(--white); margin-bottom: 2rem; border-radius: 2px; position: relative; overflow: hidden; }
+    .result-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 30%, rgba(196,94,42,0.2), transparent 60%); }
+    .result-emoji { font-size: 3rem; margin-bottom: 1rem; position: relative; }
+    .result-tag { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ember-light); margin-bottom: 0.75rem; position: relative; }
+    .result-name { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; margin-bottom: 0.5rem; position: relative; }
+    .result-tagline { font-style: italic; color: rgba(255,255,255,0.6); font-family: var(--serif); font-size: 1.05rem; position: relative; }
+
+    .result-body { display: grid; gap: 1.25rem; }
+    .result-card { background: var(--white); padding: 1.75rem; border: 1px solid rgba(28,26,23,0.08); border-radius: 2px; }
+    .result-card h3 { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ember); margin-bottom: 1rem; }
+    .result-card p { font-size: 0.92rem; color: var(--ink2); line-height: 1.75; }
+    .tags-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag-item { padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.78rem; font-weight: 500; }
+    .tag-force { background: rgba(196,94,42,0.1); color: var(--ember); border: 1px solid rgba(196,94,42,0.2); }
+    .tag-defi { background: rgba(28,26,23,0.06); color: var(--ink2); border: 1px solid rgba(28,26,23,0.1); }
+    .croyance-box { background: var(--ember-pale); padding: 1.25rem 1.5rem; border-left: 3px solid var(--ember); font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: var(--ink); line-height: 1.6; }
+    .actions-list { list-style: none; }
+    .actions-list li { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.65rem 0; border-bottom: 1px solid rgba(28,26,23,0.06); font-size: 0.9rem; color: var(--ink2); line-height: 1.6; }
+    .actions-list li:last-child { border-bottom: none; }
+    .actions-list li::before { content: '→'; color: var(--ember); font-weight: 600; flex-shrink: 0; margin-top: 0.05em; }
+
+    .result-cta { background: var(--ink); color: var(--white); padding: 2.5rem; text-align: center; border-radius: 2px; margin-top: 0.5rem; }
+    .result-cta h3 { font-family: var(--serif); font-size: 1.6rem; margin-bottom: 0.75rem; }
+    .result-cta h3 em { font-style: italic; color: var(--ember-light); }
+    .result-cta p { font-size: 0.9rem; color: rgba(255,255,255,0.55); margin-bottom: 1.75rem; line-height: 1.7; max-width: 440px; margin-left: auto; margin-right: auto; }
+    .btn-cta { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem; background: var(--ember); color: var(--white); font-weight: 500; font-size: 0.95rem; text-decoration: none; border-radius: 2px; transition: background 0.2s; border: none; cursor: pointer; font-family: var(--sans); }
+    .btn-cta:hover { background: var(--ember-light); }
+    .result-share { margin-top: 1.25rem; font-size: 0.78rem; color: rgba(255,255,255,0.3); font-family: var(--mono); }
+
+    .error-msg { color: var(--ember); font-size: 0.8rem; font-family: var(--mono); margin-top: 0.5rem; display: none; }
+    .error-msg.show { display: block; }
+
+    @media (max-width: 600px) {
+      .diag-hero { padding: 6rem 5vw 2rem; }
+      #step-quiz, #step-result { padding: 0 0 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">CustomYourLife<span>Créateur de Liberté</span></a>
+</nav>
+
+<div style="padding: 0 6vw;">
+
+  <!-- HERO -->
+  <div class="diag-hero">
+    <p class="diag-tag">Diagnostic gratuit · 5 minutes</p>
+    <h1>Pourquoi es-tu bloqué(e)<br>malgré tout ton <em>potentiel</em> ?</h1>
+    <p>22 questions pour révéler ton profil d'entrepreneur, tes vraies forces, ta croyance limitante dominante — et ton plan d'action personnalisé.</p>
+    <div class="diag-stats">
+      <div class="diag-stat"><strong>22</strong><span>Questions</span></div>
+      <div class="diag-stat"><strong>8</strong><span>Profils</span></div>
+      <div class="diag-stat"><strong>5 min</strong><span>Chrono</span></div>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 1 : LEAD CAPTURE -->
+  <div id="step-lead">
+    <h2 class="lead-title">Commence par te présenter</h2>
+    <p class="lead-sub">Ton profil personnalisé s'affichera directement après le questionnaire.</p>
+    <div class="form-row">
+      <div class="fg"><label>Prénom</label><input type="text" id="l-name" placeholder="Marie"></div>
+      <div class="fg"><label>Email</label><input type="email" id="l-email" placeholder="marie@email.com"></div>
+    </div>
+    <p class="error-msg" id="lead-error">Merci de renseigner ton prénom et ton email.</p>
+    <button class="btn-start" id="btnStart">Démarrer mon diagnostic →</button>
+    <p class="lead-note">Gratuit · Résultat immédiat · Sans spam</p>
+  </div>
+
+  <!-- ÉTAPE 2 : QUESTIONNAIRE -->
+  <div id="step-quiz">
+    <div style="padding-top: 2rem;">
+      <div class="progress-wrap">
+        <div class="progress-top">
+          <span class="progress-label">Ta progression</span>
+          <span class="progress-num" id="progress-text">Question 1 / 22</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:4.5%"></div></div>
+      </div>
+      <div id="question-area"></div>
+      <div class="nav-btns">
+        <button class="btn-prev" id="btnPrev" style="display:none">← Précédent</button>
+        <button class="btn-next" id="btnNext" disabled>Suivant →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 3 : RÉSULTAT -->
+  <div id="step-result"></div>
+
+</div>
+
+<script>
+const QUESTIONS = [
+  // PARTIE 1 — Qui tu es
+  { section: "Qui tu es", sectionTitle: "Parlons de ta situation actuelle", q: "Tu te situes où dans ta vie professionnelle en ce moment ?", opts: ["Salarié(e) qui rêve d'autre chose", "En reconversion ou entre deux projets", "Déjà indépendant(e) mais ça ne décolle pas", "Plusieurs projets en cours, aucun abouti"] },
+  { q: "Dans quelle tranche d'âge te situes-tu ?", opts: ["20-30 ans", "31-40 ans", "41-50 ans", "50 ans et plus"] },
+  { q: "Comment décrirais-tu ta situation financière actuelle ?", opts: ["Stable mais je veux plus de liberté", "Juste suffisante, j'ai besoin de changer ça vite", "Difficile, l'urgence est réelle", "Correcte mais je veux construire quelque chose de solide"] },
+
+  // PARTIE 2 — Fonctionnement naturel
+  { section: "Ton fonctionnement", sectionTitle: "Comment tu fonctionnes naturellement", q: "Quand un nouveau projet t'enthousiasme :", opts: ["Je fonce immédiatement sans trop réfléchir", "J'analyse tout avant de commencer", "Je fais un plan détaillé", "Je rêve du projet mais passe rarement à l'action"] },
+  { q: "Après quelques semaines sur un projet :", opts: ["Je suis toujours autant motivé(e)", "Mon intérêt commence à diminuer", "Je cherche déjà autre chose", "Ça dépend si je vois des résultats concrets"] },
+  { q: "Tu travailles mieux :", opts: ["Seul(e), à mon rythme, sans contrainte", "Avec une structure et des deadlines claires", "Entouré(e) d'une communauté qui m'inspire", "En alternant phases d'isolement et d'échanges"] },
+
+  // PARTIE 3 — Rapport à l'argent
+  { section: "Argent & croyances", sectionTitle: "Ton rapport à l'argent et à la sécurité", q: "La phrase qui te ressemble le plus :", opts: ["\"Je veux être libre financièrement avant tout\"", "\"Je veux me sentir en sécurité\"", "\"Je veux vivre de ce qui me passionne\"", "\"Je veux avoir un impact avant de penser à l'argent\""] },
+  { q: "Quand il faut investir sur toi-même :", opts: ["J'y vais facilement si ça me parle", "J'hésite longtemps avant de décider", "J'attends d'être certain(e) du résultat", "Je reporte toujours à plus tard"] },
+  { q: "Face à l'argent, ta croyance la plus profonde c'est :", opts: ["\"L'argent ça se mérite, ça se construit\"", "\"L'argent c'est compliqué pour moi\"", "\"Je ne suis pas fait(e) pour être riche\"", "\"L'argent viendra si je fais les bonnes choses\""] },
+
+  // PARTIE 4 — Blocages
+  { section: "Tes blocages", sectionTitle: "Ce qui te freine vraiment", q: "Ce qui te freine le plus aujourd'hui :", opts: ["Je manque de clarté, je ne sais pas quoi choisir", "Je manque de confiance en moi et en ma légitimité", "Je me disperse trop, j'ai trop d'idées", "Je manque de temps ou d'énergie"] },
+  { q: "Quand tu vois quelqu'un réussir dans ton domaine :", opts: ["Ça m'inspire, je me dis que c'est possible", "Je me compare et je me sens en retard", "Je me dis que j'aurais pu faire pareil", "Je cherche ce qu'ils ont que je n'ai pas"] },
+  { q: "Ton plus grand saboteur intérieur c'est :", opts: ["La peur du jugement des autres", "Le syndrome de l'imposteur", "La procrastination et le perfectionnisme", "L'éparpillement et l'inconstance"] },
+
+  // PARTIE 5 — Capital caché
+  { section: "Ton capital caché", sectionTitle: "Ce que tu possèdes déjà sans le voir", q: "Sans fausse modestie, tu es naturellement bon(ne) pour :", opts: ["Créer du contenu, écrire, communiquer", "Analyser, structurer, organiser", "Convaincre, vendre, connecter les gens", "Apprendre vite et m'adapter à tout"] },
+  { q: "Dans ta vie tu as déjà :", opts: ["Développé une vraie expertise dans un domaine", "Accumulé des expériences très variées", "Aidé des gens à résoudre des problèmes concrets", "Créé ou lancé quelque chose from scratch"] },
+  { q: "Les gens te sollicitent naturellement pour :", opts: ["Des conseils et ton avis", "De l'aide technique ou pratique", "De l'écoute et du soutien", "Des idées et de la créativité"] },
+
+  // PARTIE 6 — Vision & action
+  { section: "Ta vision", sectionTitle: "Où tu veux aller et comment tu passes à l'action", q: "Dans 3 ans, tu veux surtout :", opts: ["Être libre géographiquement, travailler d'où je veux", "Avoir créé quelque chose qui m'appartient vraiment", "Aider un maximum de personnes et avoir un impact", "Avoir une stabilité financière solide et durable"] },
+  { q: "Combien de projets as-tu lancés sans les terminer ?", opts: ["Aucun ou très peu, je vais au bout", "Quelques-uns, j'ai mes raisons", "Beaucoup, c'est mon pattern", "Je préfère ne pas compter 😅"] },
+  { q: "Quand tu as une idée :", opts: ["Je commence immédiatement", "Je fais beaucoup de recherches d'abord", "Je demande l'avis des autres", "Je la garde longtemps dans ma tête"] },
+  { q: "Ta relation au web et au digital :", opts: ["Je maîtrise, j'ai déjà des bases solides", "Je me débrouille mais j'ai des lacunes", "Je suis débutant(e), tout est à apprendre", "J'ai essayé des choses mais sans résultats"] },
+
+  // PARTIE 7 — Persona
+  { section: "La touche finale", sectionTitle: "Pour affiner ton profil", q: "Ce qui compte le plus pour toi dans une activité :", opts: ["La liberté et l'autonomie totale", "Le sens et l'alignement avec mes valeurs", "L'impact et aider les autres", "La stabilité et la sécurité"] },
+  { q: "En une phrase, tu te décrirais comme :", opts: ["Quelqu'un qui a plein d'idées mais du mal à choisir", "Quelqu'un de compétent qui doute de sa légitimité", "Quelqu'un qui recommence souvent de zéro", "Quelqu'un qui attend le bon moment qui ne vient jamais"] },
+  { q: "Si ta vie était un élément naturel en ce moment, ce serait :", opts: ["🔥 Le feu — de l'énergie mais qui part dans tous les sens", "🌊 L'eau — je m'adapte mais je cherche mon lit", "🌱 La graine — le potentiel est là mais pas encore germé", "🌪️ Le vent — je bouge beaucoup mais sans ancrage"] },
+];
+
+const PROFILES = {
+  VISIONNAIRE: {
+    emoji: "🔥", name: "Le Visionnaire Dispersé",
+    tagline: "\"Je vois tout, je commence tout, je termine peu\"",
+    desc: "Tu as une vision extraordinaire et une capacité à voir les connexions que les autres ne voient pas. Ton cerveau tourne en permanence, génère des idées brillantes — mais la dispersion est ton talon d'Achille. Tu commences beaucoup, tu termines peu. Et pourtant, ce n'est pas un défaut de caractère : c'est un profil qui demande une structure adaptée.",
+    forces: ["Créativité débordante", "Vision globale", "Capacité à relier des univers", "Leadership naturel"],
+    defis: ["Dispersion", "Abandon des projets", "Surcharge mentale", "Difficulté à prioriser"],
+    croyance: "\"Choisir, c'est renoncer à une partie de moi\"",
+    actions: ["Choisir UN projet principal pour 90 jours — les autres en pause", "Créer un système simple de capture d'idées pour ne plus les perdre", "Trouver un partenaire de redevabilité pour tenir dans la durée", "Définir ta ligne rouge : qu'est-ce qui est non-négociable dans ton projet ?"]
+  },
+  BATISSEUR: {
+    emoji: "🧱", name: "Le Bâtisseur Invisible",
+    tagline: "\"Je sais faire mais je n'ose pas me montrer\"",
+    desc: "Tu as des compétences réelles, une profondeur que peu de gens ont. Mais tu restes dans l'ombre. Tu peaufines, tu améliores, tu reporte le moment de te montrer. Le monde ne sait pas encore ce que tu vaux — et c'est principalement parce que tu ne te l'autorises pas encore toi-même.",
+    forces: ["Compétences solides", "Fiabilité", "Profondeur", "Qualité de travail"],
+    defis: ["Syndrome de l'imposteur", "Invisibilité choisie", "Perfectionnisme paralysant", "Peur du jugement"],
+    croyance: "\"Je ne suis pas encore assez légitime pour me montrer\"",
+    actions: ["Publier quelque chose d'imparfait cette semaine — juste pour briser le cycle", "Lister 5 résultats concrets que tu as déjà obtenus pour d'autres", "Définir ton offre minimale viable et la proposer à 3 personnes", "Travailler ta posture : tu n'es pas obligé(e) d'être le meilleur pour aider"]
+  },
+  EXPLORATEUR: {
+    emoji: "⚡", name: "L'Explorateur Éternel",
+    tagline: "\"J'apprends tout mais je ne lance rien\"",
+    desc: "Tu es passionné(e) d'apprentissage. Tu consommes des formations, des podcasts, des livres. Tu sais énormément de choses. Mais entre savoir et faire, il y a un gouffre que tu n'arrives pas à franchir. La prochaine formation ne sera pas la solution — la solution c'est l'action imparfaite.",
+    forces: ["Curiosité insatiable", "Adaptabilité", "Large culture", "Capacité d'apprentissage rapide"],
+    defis: ["Accumulation sans action", "Paralysie par l'analyse", "Addiction aux formations", "Procrastination déguisée en préparation"],
+    croyance: "\"Je dois tout savoir avant de commencer\"",
+    actions: ["Bloquer l'achat de toute nouvelle formation pendant 60 jours", "Choisir UN sujet où tu as assez de savoir pour aider quelqu'un aujourd'hui", "Lancer quelque chose de petit cette semaine — même minuscule", "Trouver un premier client ou utilisateur avant de te perfectionner"]
+  },
+  CAMELEON: {
+    emoji: "🌱", name: "Le Caméléon Professionnel",
+    tagline: "\"Je m'adapte à tout mais je ne sais plus qui je suis\"",
+    desc: "Tu as une capacité d'adaptation extraordinaire. Tu peux exceller dans des domaines très différents. Mais à force de t'adapter aux autres, tu as perdu le fil de qui tu es vraiment. Ton positionnement est flou — pas parce que tu manques de valeur, mais parce que tu n'as pas encore décidé quelle version de toi tu veux incarner.",
+    forces: ["Polyvalence exceptionnelle", "Empathie profonde", "Lecture des situations", "Grande adaptabilité"],
+    defis: ["Identité professionnelle floue", "Difficulté à se positionner", "Vit parfois les projets des autres", "Manque d'ancrage"],
+    croyance: "\"Je dois choisir une seule voie pour être crédible\"",
+    actions: ["Faire le bilan : quels sont les 3 domaines où tu as eu les meilleurs résultats ?", "Définir ton client idéal et parler uniquement à lui pendant 90 jours", "Créer une offre qui combine 2-3 de tes compétences de façon unique", "Arrêter de s'adapter — commencer à proposer"]
+  },
+  STRATEGE: {
+    emoji: "💎", name: "Le Stratège Impatient",
+    tagline: "\"Je vois les solutions mais je veux tout, tout de suite\"",
+    desc: "Tu as une vision stratégique claire et une capacité d'exécution réelle. Mais tu veux aller trop vite. Tu t'imposes une pression énorme et quand les résultats ne viennent pas assez vite, tu remets tout en question. Ton plus grand ennemi n'est pas le manque de compétence — c'est l'impatience.",
+    forces: ["Vision stratégique", "Rapidité d'exécution", "Leadership naturel", "Orientation résultats"],
+    defis: ["Impatience chronique", "Difficulté à déléguer", "Risque de burn-out", "Remet tout en question trop vite"],
+    croyance: "\"Si ça ne marche pas vite, ça ne marchera jamais\"",
+    actions: ["Définir des jalons réalistes à 30, 60, 90 jours — pas à 7 jours", "Choisir une métrique principale et ne regarder qu'elle", "Apprendre à déléguer au moins une tâche cette semaine", "Pratiquer la patience active : avancer sans attendre les résultats"]
+  },
+  PHOENIX: {
+    emoji: "🦋", name: "Le Phœnix en Reconstruction",
+    tagline: "\"J'ai tout essayé, j'ai tout perdu, je recommence\"",
+    desc: "Tu portes des cicatrices réelles — des projets qui n'ont pas abouti, des espoirs déçus, peut-être des pertes financières. Mais tu es encore là. Cette résilience est extraordinaire. Ce n'est pas de l'échec que tu portes — c'est de l'expérience brute que 90% des gens n'ont pas. La question n'est plus de repartir de zéro, mais de repartir avec tout ce que tu sais.",
+    forces: ["Résilience extraordinaire", "Expérience accumulée", "Humilité vraie", "Capacité à rebondir"],
+    defis: ["Confiance en soi entamée", "Fatigue des recommencements", "Doute profond", "Peur de revivre l'échec"],
+    croyance: "\"Peut-être que ce n'est pas fait pour moi\"",
+    actions: ["Lister tout ce que tu as appris de tes échecs — c'est ton vrai capital", "Choisir un projet infiniment plus petit que ce que tu as essayé avant", "Valider avant de construire : une vente d'abord, le produit ensuite", "S'entourer d'une personne qui croit en toi et te le dit régulièrement"]
+  },
+  MULTIPOTENTIEL: {
+    emoji: "🧭", name: "Le Multipotentiel Structuré",
+    tagline: "\"J'ai tout pour réussir, il me manque juste la méthode\"",
+    desc: "Tu as des compétences variées, de la motivation, une conscience de toi rare. Tu sais que tu es capable. Mais tu n'as pas encore trouvé le système qui permet de relier tout ça de façon cohérente et rentable. Tu n'as pas besoin d'une nouvelle idée — tu as besoin d'une architecture.",
+    forces: ["Compétences variées", "Motivation réelle", "Conscience de soi", "Vision globale"],
+    defis: ["Manque de système", "Pas de fil conducteur clair", "Éparpillement organisé", "Cherche la méthode parfaite"],
+    croyance: "\"Je dois trouver LA méthode parfaite avant de me lancer\"",
+    actions: ["Cartographier toutes tes compétences et identifier le fil conducteur", "Choisir le business model le plus aligné avec ton énergie naturelle", "Créer une offre hybride qui intègre 2-3 de tes univers", "Lancer en version imparfaite et améliorer avec les retours réels"]
+  },
+  DEBUTANT: {
+    emoji: "🌟", name: "Le Débutant Ambitieux",
+    tagline: "\"Je pars de zéro mais je veux tout changer\"",
+    desc: "Tu arrives avec une motivation intacte et un regard neuf que beaucoup ont perdu. Tu n'as pas encore été déformé(e) par les fausses croyances du marketing en ligne. C'est une force immense. Mais tu as besoin d'un chemin clair pour ne pas te perdre dans l'immensité des possibles — et éviter les pièges que beaucoup ont payé cher.",
+    forces: ["Motivation intacte", "Regard neuf", "Aucune mauvaise habitude", "Tout est possible"],
+    defis: ["Manque de repères", "Vulnérabilité aux promesses miracles", "Besoin d'être guidé(e)", "Peut se décourager vite"],
+    croyance: "\"Je suis trop en retard, les autres ont trop d'avance\"",
+    actions: ["Choisir UN seul business model adapté aux débutants et s'y tenir 6 mois", "Trouver un mentor ou une communauté sérieuse pour ne pas avancer seul(e)", "Définir ton client idéal avant de créer quoi que ce soit", "Accepter que les premiers mois soient une phase d'apprentissage payée"]
+  }
+};
+
+let userName = '';
+let userEmail = '';
+let answers = new Array(22).fill(null);
+let currentQ = 0;
+
+function getProfile(ans) {
+  let scores = { VISIONNAIRE:0, BATISSEUR:0, EXPLORATEUR:0, CAMELEON:0, STRATEGE:0, PHOENIX:0, MULTIPOTENTIEL:0, DEBUTANT:0 };
+
+  // Q1 situation
+  if(ans[0]==='C'||ans[0]==='D') scores.VISIONNAIRE+=2;
+  if(ans[0]==='A') scores.DEBUTANT+=1;
+  if(ans[0]==='B') scores.PHOENIX+=1;
+
+  // Q3 finances
+  if(ans[2]==='B'||ans[2]==='C') { scores.PHOENIX+=2; scores.DEBUTANT+=1; }
+  if(ans[2]==='A') scores.STRATEGE+=1;
+
+  // Q4 projet enthousiasme
+  if(ans[3]==='A') scores.VISIONNAIRE+=2;
+  if(ans[3]==='B') scores.EXPLORATEUR+=2;
+  if(ans[3]==='C') scores.BATISSEUR+=1;
+  if(ans[3]==='D') scores.CAMELEON+=2;
+
+  // Q5 après semaines
+  if(ans[4]==='B'||ans[4]==='C') scores.VISIONNAIRE+=2;
+  if(ans[4]==='A') scores.BATISSEUR+=1;
+  if(ans[4]==='D') scores.STRATEGE+=1;
+
+  // Q7 rapport argent
+  if(ans[6]==='A') scores.STRATEGE+=1;
+  if(ans[6]==='B') scores.BATISSEUR+=1;
+  if(ans[6]==='C') scores.MULTIPOTENTIEL+=1;
+  if(ans[6]==='D') scores.CAMELEON+=1;
+
+  // Q8 investir
+  if(ans[7]==='C'||ans[7]==='D') scores.EXPLORATEUR+=1;
+  if(ans[7]==='B') scores.BATISSEUR+=1;
+
+  // Q9 croyance argent
+  if(ans[8]==='B'||ans[8]==='C') scores.PHOENIX+=2;
+
+  // Q10 frein
+  if(ans[9]==='A') scores.VISIONNAIRE+=1;
+  if(ans[9]==='B') scores.BATISSEUR+=2;
+  if(ans[9]==='C') scores.VISIONNAIRE+=2;
+  if(ans[9]==='D') scores.CAMELEON+=1;
+
+  // Q12 saboteur
+  if(ans[11]==='A') scores.BATISSEUR+=2;
+  if(ans[11]==='B') scores.BATISSEUR+=2;
+  if(ans[11]==='C') scores.EXPLORATEUR+=2;
+  if(ans[11]==='D') scores.VISIONNAIRE+=2;
+
+  // Q13 talent
+  if(ans[12]==='A') scores.MULTIPOTENTIEL+=1;
+  if(ans[12]==='D') scores.MULTIPOTENTIEL+=2;
+
+  // Q14 expérience
+  if(ans[13]==='B') scores.MULTIPOTENTIEL+=2;
+  if(ans[13]==='C') scores.CAMELEON+=1;
+
+  // Q17 projets non terminés
+  if(ans[16]==='C'||ans[16]==='D') scores.VISIONNAIRE+=2;
+  if(ans[16]==='A') scores.BATISSEUR+=1;
+
+  // Q18 idée
+  if(ans[17]==='B') scores.EXPLORATEUR+=2;
+  if(ans[17]==='D') scores.CAMELEON+=2;
+
+  // Q19 digital
+  if(ans[18]==='C') scores.DEBUTANT+=3;
+  if(ans[18]==='D') scores.PHOENIX+=2;
+  if(ans[18]==='A') scores.MULTIPOTENTIEL+=1;
+
+  // Q21 autodescription
+  if(ans[20]==='A') scores.VISIONNAIRE+=3;
+  if(ans[20]==='B') scores.BATISSEUR+=3;
+  if(ans[20]==='C') scores.PHOENIX+=3;
+  if(ans[20]==='D') scores.EXPLORATEUR+=3;
+
+  // Q22 élément naturel
+  if(ans[21]==='A') scores.VISIONNAIRE+=2;
+  if(ans[21]==='B') scores.CAMELEON+=2;
+  if(ans[21]==='C') scores.DEBUTANT+=2;
+  if(ans[21]==='D') scores.MULTIPOTENTIEL+=2;
+
+  return Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
+}
+
+function renderQuestion(idx) {
+  const q = QUESTIONS[idx];
+  const area = document.getElementById('question-area');
+  let html = '';
+  if(q.section) {
+    html += `<div class="section-header"><div class="section-tag">${q.section}</div><div class="section-title">${q.sectionTitle}</div></div>`;
+  }
+  html += `<div class="question-block">
+    <div class="question-num">Question ${idx+1} / 22</div>
+    <div class="question-text">${q.q}</div>
+    <div class="options">`;
+  const letters = ['A','B','C','D'];
+  q.opts.forEach((opt, i) => {
+    const selected = answers[idx] === letters[i] ? 'selected' : '';
+    html += `<div class="option ${selected}" onclick="selectOption(${idx},'${letters[i]}',this)">
+      <span class="option-letter">${letters[i]}</span>${opt}
+    </div>`;
+  });
+  html += `</div></div>`;
+  area.innerHTML = html;
+
+  document.getElementById('progress-text').textContent = `Question ${idx+1} / 22`;
+  document.getElementById('progress-fill').style.width = `${((idx+1)/22)*100}%`;
+  document.getElementById('btnNext').disabled = answers[idx] === null;
+  document.getElementById('btnPrev').style.display = idx > 0 ? 'block' : 'none';
+  document.getElementById('btnNext').textContent = idx === 21 ? 'Voir mon profil →' : 'Suivant →';
+  window.scrollTo({top: 200, behavior: 'smooth'});
+}
+
+function selectOption(qIdx, letter, el) {
+  answers[qIdx] = letter;
+  document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('btnNext').disabled = false;
+}
+
+function showResult() {
+  const profileKey = getProfile(answers);
+  const p = PROFILES[profileKey];
+
+  const answersText = QUESTIONS.map((q,i) => {
+    const letters = ['A','B','C','D'];
+    const idx = letters.indexOf(answers[i]);
+    return `Q${i+1}: ${q.q} → ${idx >= 0 ? q.opts[idx] : 'Non répondu'}`;
+  }).join('\n');
+
+  // Envoyer à Formspree
+  fetch('https://formspree.io/f/xpqejwpa', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      name: userName, email: userEmail,
+      profil: p.name,
+      reponses: answersText
+    })
+  });
+
+  const result = document.getElementById('step-result');
+  result.innerHTML = `
+    <div class="result-header">
+      <div class="result-emoji">${p.emoji}</div>
+      <div class="result-tag">Ton profil</div>
+      <div class="result-name">${p.name}</div>
+      <div class="result-tagline">${p.tagline}</div>
+    </div>
+    <div class="result-body">
+      <div class="result-card">
+        <h3>Ce que révèle ton profil</h3>
+        <p>${p.desc}</p>
+      </div>
+      <div class="result-card">
+        <h3>Tes forces naturelles</h3>
+        <div class="tags-list">${p.forces.map(f=>`<span class="tag-item tag-force">${f}</span>`).join('')}</div>
+      </div>
+      <div class="result-card">
+        <h3>Tes défis à travailler</h3>
+        <div class="tags-list">${p.defis.map(d=>`<span class="tag-item tag-defi">${d}</span>`).join('')}</div>
+      </div>
+      <div class="result-card">
+        <h3>Ta croyance limitante dominante</h3>
+        <div class="croyance-box">${p.croyance}</div>
+      </div>
+      <div class="result-card">
+        <h3>Ton plan d'action personnalisé</h3>
+        <ul class="actions-list">${p.actions.map(a=>`<li>${a}</li>`).join('')}</ul>
+      </div>
+      <div class="result-cta">
+        <h3>Tu veux aller <em>plus loin</em> ?</h3>
+        <p>Un appel de 15 minutes offert pour transformer ce profil en plan d'action concret — adapté à ta situation réelle.</p>
+        <a href="mailto:contact@customyourlife.com?subject=Call découverte — ${p.name}&body=Bonjour, je viens de faire le diagnostic et j'aimerais échanger 15 minutes. Mon profil : ${p.name}" class="btn-cta">Réserver mon call offert →</a>
+        <p class="result-share">Partage ton profil et aide quelqu'un que tu connais à se découvrir</p>
+      </div>
+    </div>`;
+
+  document.getElementById('step-quiz').style.display = 'none';
+  result.style.display = 'block';
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// Events
+document.getElementById('btnStart').addEventListener('click', () => {
+  userName = document.getElementById('l-name').value.trim();
+  userEmail = document.getElementById('l-email').value.trim();
+  if(!userName || !userEmail) {
+    document.getElementById('lead-error').classList.add('show');
+    return;
+  }
+  document.getElementById('lead-error').classList.remove('show');
+  document.getElementById('step-lead').style.display = 'none';
+  document.getElementById('step-quiz').style.display = 'block';
+  renderQuestion(0);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+});
+
+document.getElementById('btnNext').addEventListener('click', () => {
+  if(currentQ < 21) {
+    currentQ++;
+    renderQuestion(currentQ);
+  } else {
+    showResult();
+  }
+});
+
+document.getElementById('btnPrev').addEventListener('click', () => {
+  if(currentQ > 0) {
+    currentQ--;
+    renderQuestion(currentQ);
+  }
+});
+</script>
+</body>
+</html>
