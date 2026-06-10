@@ -141,13 +141,30 @@
     .btn-cta:hover { background: var(--ember-light); }
     .result-share { margin-top: 1.25rem; font-size: 0.78rem; color: rgba(255,255,255,0.3); font-family: var(--mono); }
 
-    .error-msg { color: var(--ember); font-size: 0.8rem; font-family: var(--mono); margin-top: 0.5rem; display: none; }
-    .error-msg.show { display: block; }
-
     @media (max-width: 600px) {
       .diag-hero { padding: 6rem 5vw 2rem; }
       #step-quiz, #step-result { padding: 0 0 3rem; }
     }
+    .share-label { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink3); margin-bottom: 1rem; }
+    .share-buttons { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+    .share-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.25rem; border-radius: 2px; font-size: 0.82rem; font-weight: 500; text-decoration: none; transition: opacity 0.2s; cursor: pointer; border: none; font-family: var(--sans); }
+    .share-btn:hover { opacity: 0.85; }
+    .share-fb { background: #1877F2; color: white; }
+    .share-wa { background: #25D366; color: white; }
+    .share-copy { background: var(--bg2); color: var(--ink2); border: 1px solid rgba(28,26,23,0.15); }
+    .copy-confirm { font-size: 0.72rem; color: var(--ember); font-family: var(--mono); margin-top: 0.5rem; display: none; }
+    .copy-confirm.show { display: block; }
+
+    footer { background: var(--ink); padding: 1.5rem 6vw; margin-top: 3rem; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .footer-logo-txt { font-family: var(--serif); font-weight: 700; font-size: 1rem; color: var(--white); text-decoration: none; }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.72rem; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; font-family: var(--mono); letter-spacing: 0.06em; }
+    .footer-links a:hover { color: var(--ember-light); }
+    .footer-copy { font-size: 0.68rem; color: rgba(255,255,255,0.15); font-family: var(--mono); }
+
+    .error-msg { color: var(--ember); font-size: 0.8rem; font-family: var(--mono); margin-top: 0.5rem; display: none; }
+    .error-msg.show { display: block; }
   </style>
 </head>
 <body>
@@ -207,6 +224,22 @@
 </div>
 
 <script>
+// Pre-fill from URL params
+const urlParams = new URLSearchParams(window.location.search);
+const prefilledName = urlParams.get('name') || '';
+const prefilledEmail = urlParams.get('email') || '';
+if(prefilledName) document.getElementById('l-name').value = prefilledName;
+if(prefilledEmail) document.getElementById('l-email').value = prefilledEmail;
+
+// Auto-skip lead step if both params present
+if(prefilledName && prefilledEmail) {
+  userName = prefilledName;
+  userEmail = prefilledEmail;
+  document.getElementById('step-lead').style.display = 'none';
+  document.getElementById('step-quiz').style.display = 'block';
+  renderQuestion(0);
+}
+
 const QUESTIONS = [
   // PARTIE 1 — Qui tu es
   { section: "Qui tu es", sectionTitle: "Parlons de ta situation actuelle", q: "Tu te situes où dans ta vie professionnelle en ce moment ?", opts: ["Salarié(e) qui rêve d'autre chose", "En reconversion ou entre deux projets", "Déjà indépendant(e) mais ça ne décolle pas", "Plusieurs projets en cours, aucun abouti"] },
@@ -249,74 +282,98 @@ const PROFILES = {
   VISIONNAIRE: {
     emoji: "🔥", name: "Le Visionnaire Dispersé",
     tagline: "\"Je vois tout, je commence tout, je termine peu\"",
-    desc: "Tu as une vision extraordinaire et une capacité à voir les connexions que les autres ne voient pas. Ton cerveau tourne en permanence, génère des idées brillantes — mais la dispersion est ton talon d'Achille. Tu commences beaucoup, tu termines peu. Et pourtant, ce n'est pas un défaut de caractère : c'est un profil qui demande une structure adaptée.",
-    forces: ["Créativité débordante", "Vision globale", "Capacité à relier des univers", "Leadership naturel"],
-    defis: ["Dispersion", "Abandon des projets", "Surcharge mentale", "Difficulté à prioriser"],
-    croyance: "\"Choisir, c'est renoncer à une partie de moi\"",
-    actions: ["Choisir UN projet principal pour 90 jours — les autres en pause", "Créer un système simple de capture d'idées pour ne plus les perdre", "Trouver un partenaire de redevabilité pour tenir dans la durée", "Définir ta ligne rouge : qu'est-ce qui est non-négociable dans ton projet ?"]
+    desc: "Ton cerveau est une machine à idées. Tu vois des connexions que les autres ne voient pas, tu perçois des opportunités avant tout le monde, tu peux te projeter dans plusieurs directions simultanément — et c'est une force exceptionnelle. Mais cette même capacité devient ton piège : tu commences dix choses, tu en termines deux. Tu passes d'un projet à l'autre avec l'enthousiasme intact mais sans jamais aller au bout. Ce n'est pas un manque de volonté. C'est un profil neurologique spécifique qui a besoin d'une structure sur mesure pour s'exprimer pleinement.",
+    revelation: "Ce que révèle vraiment ton profil : tu n'as pas un problème de motivation — tu en as trop. La motivation est ta drogue. Elle arrive en pic au lancement d'un projet, puis s'effondre quand la routine s'installe. Tu confonds l'enthousiasme du début avec la passion durable. Et tu interprètes la baisse d'intérêt comme un signal que ce n'est pas le bon projet — alors que c'est simplement la phase normale qui suit tout lancement. Les personnes qui réussissent avec ton profil ne sont pas plus motivées que toi. Elles ont appris à construire des systèmes qui fonctionnent même quand la motivation n'est pas là.",
+    forces: ["Créativité débordante et originale", "Vision globale et capacité à relier des univers différents", "Leadership naturel et charisme", "Capacité à inspirer les autres", "Intuition business souvent juste", "Apprentissage rapide et grande curiosité"],
+    defis: ["Dispersion chronique entre plusieurs projets", "Abandon des projets au moment crucial", "Surcharge mentale et fatigue décisionnelle", "Difficulté à prioriser quand tout semble urgent", "Tendance à tout recommencer plutôt qu'optimiser", "Impatience face aux résultats lents"],
+    croyance: "\"Choisir, c'est renoncer à une partie de moi\" — et cette croyance te coûte tout. En refusant de choisir, tu ne construis rien. Tu restes dans le potentiel permanent sans jamais passer à la réalisation. La vérité : choisir UN projet pour 90 jours ne ferme aucune porte. Ça en ouvre.",
+    energie: "Tu fonctionnes par cycles d'intensité. Les phases de lancement te galvanisent, les phases de maintenance t'épuisent. Le secret : confier les tâches répétitives à des systèmes (automatisation, outils, délégation) pour que ton énergie reste orientée vers ce qui t'anime vraiment — la création et la vision.",
+    business: "Les business models qui correspondent à ton profil : création de contenu (ta vision nourrit l'audience), offres de conseil stratégique (ta capacité à voir l'ensemble), produits digitaux (tu crées une fois, tu vends en continu), consulting en innovation. À éviter : tout ce qui demande une exécution répétitive sans variation.",
+    actions: ["Choisir UN seul projet principal pour les 90 prochains jours — écrire les autres dans un carnet et les oublier jusqu'en janvier", "Créer un système de capture d'idées (notes vocales, Notion) pour ne plus perdre tes idées sans t'y perdre", "Identifier le moment exact où tu abandonnes habituellement un projet — et créer un rituel pour passer ce cap", "Trouver un partenaire de redevabilité qui te tient responsable chaque semaine", "Définir 3 critères de succès mesurables pour ton projet principal — et ne regarder qu'eux"]
   },
   BATISSEUR: {
     emoji: "🧱", name: "Le Bâtisseur Invisible",
     tagline: "\"Je sais faire mais je n'ose pas me montrer\"",
-    desc: "Tu as des compétences réelles, une profondeur que peu de gens ont. Mais tu restes dans l'ombre. Tu peaufines, tu améliores, tu reporte le moment de te montrer. Le monde ne sait pas encore ce que tu vaux — et c'est principalement parce que tu ne te l'autorises pas encore toi-même.",
-    forces: ["Compétences solides", "Fiabilité", "Profondeur", "Qualité de travail"],
-    defis: ["Syndrome de l'imposteur", "Invisibilité choisie", "Perfectionnisme paralysant", "Peur du jugement"],
-    croyance: "\"Je ne suis pas encore assez légitime pour me montrer\"",
-    actions: ["Publier quelque chose d'imparfait cette semaine — juste pour briser le cycle", "Lister 5 résultats concrets que tu as déjà obtenus pour d'autres", "Définir ton offre minimale viable et la proposer à 3 personnes", "Travailler ta posture : tu n'es pas obligé(e) d'être le meilleur pour aider"]
+    desc: "Tu as construit quelque chose de réel. Des compétences, une expertise, une façon de faire les choses qui est la tienne. Les gens qui te connaissent le savent — ils te demandent des conseils, ils font appel à toi, ils te font confiance. Mais le grand public, lui, ne sait pas que tu existes. Parce que tu travailles dans l'ombre, tu peaufines dans le silence, tu attends d'être encore plus prêt(e) avant de te montrer. Et cette attente dure depuis trop longtemps.",
+    revelation: "Ce que révèle vraiment ton profil : le syndrome de l'imposteur est ton compagnon quotidien. Tu regardes ce que les autres publient et tu te dis que tu n'es pas à ce niveau — alors que paradoxalement, tu as souvent plus de substance qu'eux. Le problème n'est pas ton niveau. C'est que tu appliques aux autres des critères que tu n'appliques pas à toi-même. Tu serais le premier à encourager quelqu'un d'autre avec ton profil à se lancer. Il est temps de t'appliquer ce conseil.",
+    forces: ["Compétences solides et éprouvées", "Fiabilité et sérieux reconnus", "Profondeur et qualité de travail", "Capacité à produire des résultats concrets", "Écoute et empathie naturelles", "Humilité vraie qui inspire confiance"],
+    defis: ["Syndrome de l'imposteur chronique", "Perfectionnisme qui retarde toujours le lancement", "Invisibilité choisie par peur du jugement", "Difficulté à se vendre sans se sentir arrogant(e)", "Tendance à sous-évaluer ses services", "Peur que le succès révèle une imposture"],
+    croyance: "\"Je ne suis pas encore assez légitime pour me montrer\" — cette phrase est un mensonge que ton cerveau répète pour te protéger. La légitimité ne se décrète pas, elle se prouve par l'action. Et tu n'as pas besoin d'être le meilleur du monde pour aider quelqu'un qui est à l'étape d'avant toi.",
+    energie: "Tu fonctionnes bien dans la profondeur et la concentration. Le bruit des réseaux sociaux t'épuise. Tu préfères construire lentement mais solidement. Cette énergie est un atout si tu choisis des formats qui te correspondent : contenus longs, email, podcasts, plutôt que des vidéos courtes et des stories quotidiennes.",
+    business: "Les business models qui correspondent à ton profil : freelance spécialisé haut de gamme (tu justifies tes prix par la qualité), formation en ligne (ta profondeur fait la différence), consulting (les entreprises paient pour ton expertise), coaching (ton écoute est une force). À éviter : les business qui demandent une mise en avant constante et superficielle.",
+    actions: ["Publier quelque chose d'imparfait cette semaine — un post, un email, une vidéo — juste pour briser le cycle du perfectionnisme", "Lister par écrit 10 résultats concrets que tu as déjà obtenus pour toi ou pour d'autres", "Proposer ton aide à 3 personnes cette semaine — gratuitement si nécessaire pour commencer", "Définir ton prix plancher et t'y tenir — arrêter de brader ta valeur", "Trouver un espace bienveillant (groupe, mentor) où tu peux te montrer sans jugement"]
   },
   EXPLORATEUR: {
     emoji: "⚡", name: "L'Explorateur Éternel",
     tagline: "\"J'apprends tout mais je ne lance rien\"",
-    desc: "Tu es passionné(e) d'apprentissage. Tu consommes des formations, des podcasts, des livres. Tu sais énormément de choses. Mais entre savoir et faire, il y a un gouffre que tu n'arrives pas à franchir. La prochaine formation ne sera pas la solution — la solution c'est l'action imparfaite.",
-    forces: ["Curiosité insatiable", "Adaptabilité", "Large culture", "Capacité d'apprentissage rapide"],
-    defis: ["Accumulation sans action", "Paralysie par l'analyse", "Addiction aux formations", "Procrastination déguisée en préparation"],
-    croyance: "\"Je dois tout savoir avant de commencer\"",
-    actions: ["Bloquer l'achat de toute nouvelle formation pendant 60 jours", "Choisir UN sujet où tu as assez de savoir pour aider quelqu'un aujourd'hui", "Lancer quelque chose de petit cette semaine — même minuscule", "Trouver un premier client ou utilisateur avant de te perfectionner"]
+    desc: "Tu as une soif d'apprendre qui est insatiable. Les formations, les livres, les podcasts, les masterclasses — tu en consommes en permanence. Et tu sais beaucoup de choses. Vraiment. Tu pourrais aider des dizaines de personnes avec ce que tu sais déjà. Mais tu ne le fais pas, parce que tu considères que tu n'en sais pas encore assez. Alors tu te formes encore. Et encore. Et le lancement n'arrive jamais.",
+    revelation: "Ce que révèle vraiment ton profil : la formation est devenue ta zone de confort. Tant que tu apprends, tu n'échoues pas. Tant que tu te prépares, tu n'es pas jugé(e). C'est une forme de procrastination sophistiquée — celle qui se déguise en productivité. Tu te dis que tu travailles sur ton projet alors qu'en réalité tu évites le moment de vérité : proposer quelque chose à quelqu'un et voir si ça marche.",
+    forces: ["Curiosité intellectuelle exceptionnelle", "Culture large et transversale", "Capacité d'apprentissage rapide", "Adaptabilité face aux nouvelles situations", "Rigueur dans l'analyse", "Ouverture d'esprit remarquable"],
+    defis: ["Accumulation de savoir sans passage à l'action", "Paralysie par l'analyse et sur-réflexion", "Addiction aux nouvelles formations", "Procrastination déguisée en préparation", "Perfectionnisme intellectuel", "Difficulté à accepter l'imperfection du réel"],
+    croyance: "\"Je dois tout savoir avant de commencer\" — cette croyance est particulièrement pernicieuse parce qu'elle semble raisonnable. Mais dans la réalité du business, personne ne sait tout avant de commencer. On apprend en faisant. Les 20% de connaissance les plus importants s'acquièrent dans les 3 premiers mois d'action, pas dans 3 ans de formation.",
+    energie: "Tu fonctionnes bien dans la phase de découverte et d'exploration. Mais tu dois apprendre à canaliser cette énergie vers l'action. Astuce : transforme chaque formation en une mini-expérimentation immédiate. Tu apprends quelque chose ? Tu l'appliques dans les 48h, même de façon imparfaite.",
+    business: "Les business models qui correspondent à ton profil : création de contenu éducatif (tu as la matière), curation de contenu (ta capacité à synthétiser est précieuse), formation en ligne (tu sais transmettre), conseil (ta culture large est un atout). À éviter dans un premier temps : les business trop opérationnels qui demandent de l'action sans réflexion.",
+    actions: ["Interdire tout achat de formation pendant 60 jours — utiliser ce temps pour appliquer ce que tu sais déjà", "Choisir UN seul domaine parmi tout ce que tu connais et créer quelque chose de concret cette semaine", "Trouver une seule personne à qui tu pourrais être utile aujourd'hui avec tes connaissances actuelles", "Définir une règle : pour chaque heure d'apprentissage, une heure d'application", "Publier quelque chose — article, post, vidéo — sur ce que tu sais déjà. Maintenant."]
   },
   CAMELEON: {
     emoji: "🌱", name: "Le Caméléon Professionnel",
     tagline: "\"Je m'adapte à tout mais je ne sais plus qui je suis\"",
-    desc: "Tu as une capacité d'adaptation extraordinaire. Tu peux exceller dans des domaines très différents. Mais à force de t'adapter aux autres, tu as perdu le fil de qui tu es vraiment. Ton positionnement est flou — pas parce que tu manques de valeur, mais parce que tu n'as pas encore décidé quelle version de toi tu veux incarner.",
-    forces: ["Polyvalence exceptionnelle", "Empathie profonde", "Lecture des situations", "Grande adaptabilité"],
-    defis: ["Identité professionnelle floue", "Difficulté à se positionner", "Vit parfois les projets des autres", "Manque d'ancrage"],
-    croyance: "\"Je dois choisir une seule voie pour être crédible\"",
-    actions: ["Faire le bilan : quels sont les 3 domaines où tu as eu les meilleurs résultats ?", "Définir ton client idéal et parler uniquement à lui pendant 90 jours", "Créer une offre qui combine 2-3 de tes compétences de façon unique", "Arrêter de s'adapter — commencer à proposer"]
+    desc: "Tu as un talent rare : tu peux t'intégrer dans n'importe quel environnement, comprendre n'importe quelle problématique, t'adapter à n'importe quel interlocuteur. Les gens se sentent compris avec toi. Tu excelles dans des domaines très différents. Mais cette polyvalence a un prix : tu ne sais plus très bien qui tu es vraiment, ce que tu veux vraiment, et ce que tu veux offrir au monde. Tu changes de direction selon les opportunités, les personnes que tu rencontres, les tendances que tu vois.",
+    revelation: "Ce que révèle vraiment ton profil : tu as souvent construit ton identité professionnelle en réponse aux attentes des autres plutôt qu'à partir de tes propres désirs. Tu es excellent(e) pour détecter ce que les autres veulent — et pour te transformer pour y répondre. Mais quelque part en chemin, tu as perdu le fil de ce que TOI tu voulais construire. Il est temps de faire le chemin inverse : partir de toi, pas des autres.",
+    forces: ["Adaptabilité exceptionnelle dans tous les contextes", "Empathie profonde et lecture des besoins", "Polyvalence qui ouvre de nombreuses portes", "Capacité à créer du lien rapidement", "Intelligence émotionnelle développée", "Compréhension intuitive des dynamiques humaines"],
+    defis: ["Identité professionnelle floue et instable", "Difficulté à se positionner clairement", "Tendance à vivre les projets des autres plutôt que les siens", "Manque d'ancrage et de constance", "Peur de décevoir en se montrant tel(le) qu'on est vraiment", "Difficulté à dire non et à poser des limites"],
+    croyance: "\"Je dois choisir une seule voie pour être crédible\" — c'est faux. La vraie question n'est pas de choisir une seule chose, mais de choisir UN fil conducteur. Ta polyvalence est une richesse si tu la mets au service d'une vision claire. Ce que tu dois choisir, ce n'est pas un métier — c'est une mission.",
+    energie: "Tu fonctionnes bien dans les environnements humains riches. Le contact, l'échange, la relation te nourrissent. Mais tu dois apprendre à te recentrer régulièrement — à sortir des influences extérieures pour reconnecter avec ce qui est vraiment le tien. La méditation, l'écriture, la solitude créative sont tes alliées.",
+    business: "Les business models qui correspondent à ton profil : consulting multi-clients (ta polyvalence est un atout), accompagnement personnalisé (ton empathie fait la différence), community management (tu crées du lien naturellement), personal branding (quand tu as trouvé ton angle). À construire en priorité : un positionnement ancré dans ton histoire personnelle, pas dans une compétence technique.",
+    actions: ["Écrire ta réponse à cette question : si tu ne pouvais aider qu'un seul type de personne, qui serait-ce et pourquoi ?", "Faire la liste de tout ce que tu as fait professionnellement — et identifier le fil rouge qui relie tout", "Choisir ton client idéal et construire une offre uniquement pour lui pendant 90 jours", "Apprendre à dire non à tout ce qui ne correspond pas à cette direction choisie", "Créer un ancrage quotidien : 10 minutes chaque matin pour reconnecter avec ta vision personnelle"]
   },
   STRATEGE: {
     emoji: "💎", name: "Le Stratège Impatient",
     tagline: "\"Je vois les solutions mais je veux tout, tout de suite\"",
-    desc: "Tu as une vision stratégique claire et une capacité d'exécution réelle. Mais tu veux aller trop vite. Tu t'imposes une pression énorme et quand les résultats ne viennent pas assez vite, tu remets tout en question. Ton plus grand ennemi n'est pas le manque de compétence — c'est l'impatience.",
-    forces: ["Vision stratégique", "Rapidité d'exécution", "Leadership naturel", "Orientation résultats"],
-    defis: ["Impatience chronique", "Difficulté à déléguer", "Risque de burn-out", "Remet tout en question trop vite"],
-    croyance: "\"Si ça ne marche pas vite, ça ne marchera jamais\"",
-    actions: ["Définir des jalons réalistes à 30, 60, 90 jours — pas à 7 jours", "Choisir une métrique principale et ne regarder qu'elle", "Apprendre à déléguer au moins une tâche cette semaine", "Pratiquer la patience active : avancer sans attendre les résultats"]
+    desc: "Tu as une vision stratégique réelle. Tu analyses vite, tu identifies les leviers, tu vois ce que les autres mettent du temps à comprendre. Tu as probablement déjà du succès derrière toi — ou les compétences pour en avoir. Mais tu t'imposes une pression intense. Tu veux aller vite, très vite. Et quand les résultats ne sont pas au rendez-vous dans le délai que tu t'es fixé, tu remets tout en question, tu changes de stratégie, tu recommences — alors que tu étais peut-être à deux semaines d'un vrai tournant.",
+    revelation: "Ce que révèle vraiment ton profil : tu confonds vitesse et efficacité. Dans l'entrepreneuriat, les arbres qui grandissent le plus vite ne sont pas toujours les plus solides. Ta tendance à tout remettre en question trop rapidement détruit précisément ce que tu cherches à construire : la traction. La traction, ça prend du temps. C'est biologique, pas stratégique.",
+    forces: ["Vision stratégique claire et précise", "Rapidité d'analyse et de décision", "Leadership naturel et capacité à mobiliser", "Orientation résultats et efficacité", "Capacité à voir les opportunités avant les autres", "Exécution rapide quand aligné(e)"],
+    defis: ["Impatience chronique qui sabote les projets en cours", "Tendance à tout remettre en question trop vite", "Difficulté à déléguer et à faire confiance", "Risque de burn-out par surengagement", "Relations parfois tendues à cause des exigences élevées", "Difficulté à accepter que certaines choses prennent du temps"],
+    croyance: "\"Si ça ne marche pas vite, ça ne marchera jamais\" — cette croyance t'a probablement coûté plusieurs projets qui auraient pu réussir. La plupart des business qui fonctionnent aujourd'hui ont mis 12 à 24 mois avant d'atteindre leur rythme de croisière. Ce n'est pas un échec. C'est une construction.",
+    energie: "Tu fonctionnes par sprints intenses suivis de phases de vide. Apprendre à gérer ces cycles plutôt que de les subir est crucial pour toi. Le secret : planifier délibérément des phases de récupération, pas les attendre après l'épuisement.",
+    business: "Les business models qui correspondent à ton profil : consulting haut de gamme (ta vision vaut cher), accompagnement en groupe (tu inspires et tu structures), formations avancées (ton niveau d'exigence garantit la qualité), partenariats stratégiques (tu identifies les synergies). À éviter : les business qui demandent une patience extrême avant les premiers retours.",
+    actions: ["Définir des jalons réalistes à 30, 60 et 90 jours — et s'y tenir sans changer de cap avant la fin", "Choisir UNE seule métrique principale et ne regarder qu'elle pendant 30 jours", "Identifier ce que tu pourrais déléguer et le faire cette semaine", "Mettre en place une règle : aucun pivot stratégique sans 60 jours d'exécution complète", "Programmer une vraie coupure hebdomadaire — sans écran, sans stratégie, sans objectif"]
   },
   PHOENIX: {
     emoji: "🦋", name: "Le Phœnix en Reconstruction",
     tagline: "\"J'ai tout essayé, j'ai tout perdu, je recommence\"",
-    desc: "Tu portes des cicatrices réelles — des projets qui n'ont pas abouti, des espoirs déçus, peut-être des pertes financières. Mais tu es encore là. Cette résilience est extraordinaire. Ce n'est pas de l'échec que tu portes — c'est de l'expérience brute que 90% des gens n'ont pas. La question n'est plus de repartir de zéro, mais de repartir avec tout ce que tu sais.",
-    forces: ["Résilience extraordinaire", "Expérience accumulée", "Humilité vraie", "Capacité à rebondir"],
-    defis: ["Confiance en soi entamée", "Fatigue des recommencements", "Doute profond", "Peur de revivre l'échec"],
-    croyance: "\"Peut-être que ce n'est pas fait pour moi\"",
-    actions: ["Lister tout ce que tu as appris de tes échecs — c'est ton vrai capital", "Choisir un projet infiniment plus petit que ce que tu as essayé avant", "Valider avant de construire : une vente d'abord, le produit ensuite", "S'entourer d'une personne qui croit en toi et te le dit régulièrement"]
+    desc: "Tu portes quelque chose de lourd. Des projets qui n'ont pas abouti, des investissements perdus, des espoirs déçus, peut-être des personnes qui ont douté de toi — ou pire, en qui tu avais confiance et qui t'ont déçu(e). Tu as connu des cycles d'enthousiasme et d'effondrement. Et pourtant, tu es encore là. Tu lis ces lignes. Tu cherches encore. Cette persévérance n'est pas banale — la plupart des gens auraient abandonné bien avant.",
+    revelation: "Ce que révèle vraiment ton profil : tu n'es pas quelqu'un qui échoue. Tu es quelqu'un qui a eu le courage d'essayer plusieurs fois dans un monde où la plupart n'essaient jamais. Chaque cycle t'a appris quelque chose d'irremplaçable — sur toi, sur le business, sur les gens. Cette expérience accumulée est ton vrai capital, même si tu ne la vois pas encore ainsi. Le problème actuel n'est pas un manque de capacité. C'est une confiance en soi entamée qui filtre tout à travers le prisme de tes échecs passés.",
+    forces: ["Résilience extraordinaire forgée par l'expérience", "Expérience concrète que les débutants n'ont pas", "Humilité vraie née des épreuves", "Capacité à rebondir et à recommencer", "Connaissance profonde de ses propres erreurs", "Authenticité qui inspire confiance"],
+    defis: ["Confiance en soi entamée par les échecs répétés", "Fatigue des recommencements et épuisement émotionnel", "Doute profond sur sa propre capacité à réussir", "Peur intense de revivre la même douleur", "Tendance à se saboter avant d'avoir commencé", "Difficulté à croire aux signaux positifs"],
+    croyance: "\"Peut-être que ce n'est pas fait pour moi\" — cette pensée arrive quand on est épuisé(e), pas quand on est lucide. La vérité : les gens qui ont le plus échoué avant de réussir sont souvent ceux qui réussissent le mieux, parce qu'ils ont éliminé tout ce qui ne marche pas. Tu es peut-être plus proche que tu ne le penses.",
+    energie: "Ton énergie est précieuse et limitée après tout ce que tu as traversé. La priorité absolue en ce moment : te protéger. Éviter les projets qui demandent un investissement émotionnel et financier massif avant tout retour. Commencer petit, valider vite, construire la confiance avec des petites victoires avant de viser grand.",
+    business: "Les business models qui correspondent à ton profil en ce moment : prestation de service simple avec compétences existantes (cash rapide, peu de risque), accompagnement (ton vécu est ta crédibilité), contenu basé sur ton histoire (les gens s'identifient à ta résilience). À éviter absolument : les modèles à fort investissement initial sans validation préalable.",
+    actions: ["Faire le bilan écrit de tout ce que tu as appris de chaque expérience — sans jugement, juste les apprentissages", "Choisir un projet qui peut générer un premier retour en moins de 30 jours et coûter moins de 100€ à lancer", "Valider ton idée auprès de 5 personnes réelles avant d'investir quoi que ce soit", "Identifier une personne de confiance qui peut être ton ancre dans les moments de doute", "Définir ta 'ligne de protection' : ce que tu ne feras plus jamais, pour te protéger de toi-même"]
   },
   MULTIPOTENTIEL: {
     emoji: "🧭", name: "Le Multipotentiel Structuré",
     tagline: "\"J'ai tout pour réussir, il me manque juste la méthode\"",
-    desc: "Tu as des compétences variées, de la motivation, une conscience de toi rare. Tu sais que tu es capable. Mais tu n'as pas encore trouvé le système qui permet de relier tout ça de façon cohérente et rentable. Tu n'as pas besoin d'une nouvelle idée — tu as besoin d'une architecture.",
-    forces: ["Compétences variées", "Motivation réelle", "Conscience de soi", "Vision globale"],
-    defis: ["Manque de système", "Pas de fil conducteur clair", "Éparpillement organisé", "Cherche la méthode parfaite"],
-    croyance: "\"Je dois trouver LA méthode parfaite avant de me lancer\"",
-    actions: ["Cartographier toutes tes compétences et identifier le fil conducteur", "Choisir le business model le plus aligné avec ton énergie naturelle", "Créer une offre hybride qui intègre 2-3 de tes univers", "Lancer en version imparfaite et améliorer avec les retours réels"]
+    desc: "Tu es ce qu'on appelle un multipotentiel — quelqu'un capable d'exceller dans plusieurs domaines à la fois, de faire des connexions inattendues, de naviguer entre des univers que les autres considèrent comme incompatibles. Tu as accumulé des compétences très variées, tu as une vision globale rare, et tu ressens en permanence cette tension entre tout ce que tu pourrais faire et tout ce que tu ne fais pas encore. La société t'a peut-être dit que c'était un défaut — trop d'idées, trop dispersé(e), pas assez focalisé(e). C'est faux.",
+    revelation: "Ce que révèle vraiment ton profil : ta multipotentialité n'est pas le problème. L'absence de structure pour la canaliser l'est. Les multipotentiels qui réussissent ne choisissent pas entre leurs passions — ils trouvent le fil conducteur qui les relie toutes, et ils construisent un écosystème autour de ce fil. Ton enjeu n'est pas de te limiter. C'est de créer l'architecture qui permet à tout de coexister.",
+    forces: ["Vision transversale et capacité à relier des univers différents", "Adaptabilité exceptionnelle face aux changements", "Créativité nourrie par la diversité des expériences", "Capacité à apprendre rapidement dans n'importe quel domaine", "Pensée systémique et vision d'ensemble", "Originalité dans les solutions proposées"],
+    defis: ["Éparpillement organisé qui donne l'impression de travailler sans avancer", "Difficulté à trouver le fil conducteur entre tous les projets", "Tendance à chercher LA méthode parfaite avant d'agir", "Manque de système pour gérer la complexité", "Frustration face à la lenteur de la construction", "Sentiment permanent d'être en retard sur sa propre vision"],
+    croyance: "\"Je dois trouver LA méthode parfaite avant de me lancer\" — il n'existe pas de méthode parfaite pour un multipotentiel, parce que chaque multipotentiel est unique. La méthode, tu vas la construire en avançant. Elle émergera de tes propres expérimentations, pas d'un livre ou d'une formation.",
+    energie: "Tu fonctionnes par cycles thématiques : une période tu es à fond sur la dimension business, puis sur la créativité, puis sur le bien-être. Plutôt que de lutter contre ces cycles, apprends à les intégrer dans ton modèle. Un planning flexible qui accueille ta nature est bien plus efficace qu'un planning rigide que tu ne tiens jamais.",
+    business: "Les business models qui correspondent à ton profil : écosystème de marque personnelle (comme CustomYourLife — un hub qui relie tous tes univers), consultant généraliste haut de gamme (ta vision 360° vaut cher), création de contenu multithématique, accompagnement holistique. La clé : un fil conducteur clair (la liberté, la transformation, l'autonomie) autour duquel tous tes projets gravitent.",
+    actions: ["Dessiner ta carte mentale : au centre, ta valeur fondamentale — autour, tous tes projets et passions. Voir les connexions.", "Définir ton fil conducteur en une phrase : 'Tout ce que je fais tourne autour de...'", "Choisir le projet principal qui incarne le mieux ce fil conducteur et le lancer en 30 jours", "Créer une structure simple : UN projet principal, UN projet secondaire, tout le reste en pause", "Construire ton offre hybride qui combine 2-3 de tes univers de façon unique et différenciante"]
   },
   DEBUTANT: {
     emoji: "🌟", name: "Le Débutant Ambitieux",
     tagline: "\"Je pars de zéro mais je veux tout changer\"",
-    desc: "Tu arrives avec une motivation intacte et un regard neuf que beaucoup ont perdu. Tu n'as pas encore été déformé(e) par les fausses croyances du marketing en ligne. C'est une force immense. Mais tu as besoin d'un chemin clair pour ne pas te perdre dans l'immensité des possibles — et éviter les pièges que beaucoup ont payé cher.",
-    forces: ["Motivation intacte", "Regard neuf", "Aucune mauvaise habitude", "Tout est possible"],
-    defis: ["Manque de repères", "Vulnérabilité aux promesses miracles", "Besoin d'être guidé(e)", "Peut se décourager vite"],
-    croyance: "\"Je suis trop en retard, les autres ont trop d'avance\"",
-    actions: ["Choisir UN seul business model adapté aux débutants et s'y tenir 6 mois", "Trouver un mentor ou une communauté sérieuse pour ne pas avancer seul(e)", "Définir ton client idéal avant de créer quoi que ce soit", "Accepter que les premiers mois soient une phase d'apprentissage payée"]
+    desc: "Tu arrives avec quelque chose que beaucoup ont perdu en route : l'enthousiasme intact, le regard neuf, la conviction que c'est possible. Tu n'as pas encore été déformé(e) par les désillusions, les faux départs, les escroqueries déguisées en opportunités. C'est une chance réelle. Mais c'est aussi ta vulnérabilité principale : sans repères, il est facile de se perdre dans l'immensité des possibles, de suivre les mauvaises personnes, ou de brûler ton énergie sur les mauvaises choses.",
+    revelation: "Ce que révèle vraiment ton profil : tu n'es pas en retard. Cette idée qu'il y aurait un train que tu aurais raté est une illusion marketing cultivée par ceux qui veulent te vendre quelque chose. Internet n'est pas saturé. L'IA vient de tout changer. Les opportunités pour quelqu'un qui démarre maintenant avec les bons outils et la bonne méthode sont probablement les meilleures de la décennie. Ce que tu dois éviter absolument : le syndrome de l'objet brillant — cette tendance à sauter d'une opportunité à l'autre sans jamais aller au fond d'une seule.",
+    forces: ["Motivation et enthousiasme intacts", "Regard neuf non pollué par les mauvaises habitudes", "Ouverture totale aux nouvelles approches", "Énergie et capacité de travail souvent élevées", "Absence de biais liés à des échecs passés", "Potentiel de progression rapide"],
+    defis: ["Manque de repères pour distinguer le vrai du faux", "Vulnérabilité aux promesses miracles et aux gourous", "Besoin d'être guidé(e) sans savoir vers qui se tourner", "Risque de découragement rapide face aux premiers obstacles", "Tendance à sous-estimer le temps nécessaire", "Difficulté à évaluer la valeur réelle des formations et accompagnements"],
+    croyance: "\"Je suis trop en retard, les autres ont trop d'avance\" — cette croyance est une illusion. Ceux qui semblent avoir de l'avance ont simplement commencé avant. Et beaucoup d'entre eux ont fait des erreurs que tu peux éviter si tu es bien guidé(e). Partir après eux avec les bonnes informations peut être un avantage, pas un handicap.",
+    energie: "Ton énergie est haute mais elle peut s'épuiser vite si tu n'as pas de structure. La clé pour toi : des victoires rapides et fréquentes pour maintenir la motivation sur la durée. Choisir un business model qui montre des premiers résultats en moins de 60 jours est crucial pour ne pas décrocher.",
+    business: "Les business models adaptés à un débutant motivé : services basés sur des compétences existantes (le plus rapide à monétiser), revente de produits digitaux avec droits de revente (peu de création nécessaire), affiliation (sans logistique), création de contenu sur un sujet que tu maîtrises déjà. À éviter : les modèles complexes qui nécessitent beaucoup d'apprentissage technique avant le premier euro.",
+    actions: ["Faire l'inventaire honnête de tes compétences actuelles — même celles qui te semblent banales", "Choisir UN seul business model simple et t'y tenir pendant 6 mois sans te laisser distraire", "Trouver une communauté sérieuse ou un mentor pour ne pas avancer seul(e) dans le brouillard", "Définir ton client idéal en priorité — avant de créer quoi que ce soit", "Fixer un objectif modeste mais concret pour les 30 prochains jours : pas 'réussir', mais 'obtenir 3 retours de clients potentiels'"]
   }
 };
 
@@ -470,14 +527,18 @@ function showResult() {
   result.innerHTML = `
     <div class="result-header">
       <div class="result-emoji">${p.emoji}</div>
-      <div class="result-tag">Ton profil</div>
+      <div class="result-tag">Ton profil · CustomYourLife</div>
       <div class="result-name">${p.name}</div>
       <div class="result-tagline">${p.tagline}</div>
     </div>
     <div class="result-body">
       <div class="result-card">
-        <h3>Ce que révèle ton profil</h3>
+        <h3>Ce que dit ton profil</h3>
         <p>${p.desc}</p>
+      </div>
+      <div class="result-card" style="background:var(--ember-pale); border-color:rgba(196,94,42,0.2)">
+        <h3>Ce que révèle vraiment ton profil</h3>
+        <p>${p.revelation}</p>
       </div>
       <div class="result-card">
         <h3>Tes forces naturelles</h3>
@@ -492,14 +553,30 @@ function showResult() {
         <div class="croyance-box">${p.croyance}</div>
       </div>
       <div class="result-card">
-        <h3>Ton plan d'action personnalisé</h3>
+        <h3>Ton profil énergétique</h3>
+        <p>${p.energie}</p>
+      </div>
+      <div class="result-card">
+        <h3>Les business models faits pour toi</h3>
+        <p>${p.business}</p>
+      </div>
+      <div class="result-card">
+        <h3>Ton plan d'action — 5 étapes concrètes</h3>
         <ul class="actions-list">${p.actions.map(a=>`<li>${a}</li>`).join('')}</ul>
       </div>
       <div class="result-cta">
         <h3>Tu veux aller <em>plus loin</em> ?</h3>
-        <p>Un appel de 15 minutes offert pour transformer ce profil en plan d'action concret — adapté à ta situation réelle.</p>
+        <p>Un appel de 15 minutes offert pour transformer ce profil en plan d'action concret — adapté à ta situation réelle, pas à un profil générique.</p>
         <a href="mailto:contact@customyourlife.com?subject=Call découverte — ${p.name}&body=Bonjour, je viens de faire le diagnostic et j'aimerais échanger 15 minutes. Mon profil : ${p.name}" class="btn-cta">Réserver mon call offert →</a>
-        <p class="result-share">Partage ton profil et aide quelqu'un que tu connais à se découvrir</p>
+        <div class="share-section">
+          <p class="share-label">Partage ce diagnostic</p>
+          <div class="share-buttons">
+            <button class="share-btn share-fb" id="share-fb">📘 Facebook</button>
+            <button class="share-btn share-wa" id="share-wa">💬 WhatsApp</button>
+            <button class="share-btn share-copy" id="share-copy">🔗 Copier le lien</button>
+          </div>
+          <p class="copy-confirm" id="copy-confirm">✓ Lien copié !</p>
+        </div>
       </div>
     </div>`;
 
@@ -538,6 +615,43 @@ document.getElementById('btnPrev').addEventListener('click', () => {
     renderQuestion(currentQ);
   }
 });
+
+function shareProfile() {
+  const url = encodeURIComponent('https://customyourlife.com/diagnostic.html');
+  const text = encodeURIComponent('Je viens de découvrir mon profil d\'entrepreneur sur CustomYourLife — c\'est bluffant ! Fais le diagnostic gratuit 👇');
+  return { url, text };
+}
+
+document.addEventListener('click', function(e) {
+  if(e.target.id === 'share-fb') {
+    const { url } = shareProfile();
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+  }
+  if(e.target.id === 'share-wa') {
+    const { url, text } = shareProfile();
+    window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+  }
+  if(e.target.id === 'share-copy') {
+    navigator.clipboard.writeText('https://customyourlife.com/diagnostic.html').then(() => {
+      document.getElementById('copy-confirm').classList.add('show');
+      setTimeout(() => document.getElementById('copy-confirm').classList.remove('show'), 3000);
+    });
+  }
+});
 </script>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo-txt">CustomYourLife</a>
+    <div class="footer-links">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="mentions-legales.html#cgv">CGV</a>
+      <a href="mentions-legales.html#confidentialite">Confidentialité</a>
+      <a href="mailto:contact@customyourlife.com">Contact</a>
+    </div>
+    <p class="footer-copy">© 2026 CustomYourLife</p>
+  </div>
+</footer>
+
 </body>
 </html>
