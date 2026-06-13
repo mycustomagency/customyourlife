@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tu as une audience sur Instagram, TikTok ou YouTube mais tu ne la monétises pas encore ? Découvre comment transformer ta communauté en système de revenus stable avec CustomYourLife.">
+  <meta property="og:title" content="Monétise ton audience — CustomYourLife">
+  <meta property="og:description" content="Tu crées du contenu, tu as une audience — mais pas encore de business derrière. Il te manque le système, pas le contenu.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://customyourlife.com/monetise.html">
+  <title>Monétise ton audience | Créateurs de contenu — CustomYourLife</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F7F4EF; --bg2: #EEE9E0; --ink: #1C1A17; --ink2: #4A4640; --ink3: #8A847C;
+      --ember: #C45E2A; --ember-light: #E8845A; --ember-pale: #F5DDD0; --white: #FDFCFA;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--ink); overflow-x: hidden; line-height: 1.6; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 6vw; background: rgba(247,244,239,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(28,26,23,0.08); }
+    .logo { font-family: var(--serif); font-weight: 700; font-size: 1.25rem; color: var(--ink); text-decoration: none; line-height: 1; }
+    .logo span { display: block; font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ember); font-weight: 400; margin-top: 0.15rem; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { font-size: 0.82rem; color: var(--ink2); text-decoration: none; font-family: var(--mono); letter-spacing: 0.06em; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--ember); }
+    .nav-cta { padding: 0.5rem 1.25rem; background: var(--ember); color: var(--white) !important; border-radius: 2px; }
+    .nav-cta:hover { background: var(--ember-light) !important; }
+    @media (max-width: 640px) { .nav-links { display: none; } }
+
+    /* HERO SOMBRE */
+    .page-hero {
+      background: var(--ink); padding: 9rem 6vw 6rem;
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(196,94,42,0.12), transparent 60%); }
+    .hero-inner { max-width: 820px; margin: 0 auto; position: relative; }
+    .breadcrumb { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; }
+    .breadcrumb a { color: rgba(255,255,255,0.25); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--ember-light); }
+    .breadcrumb span { color: var(--ember-light); }
+    .page-tag { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ember-light); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+    .page-tag::before { content: '02 / 03'; color: rgba(255,255,255,0.2); }
+    .page-hero h1 { font-family: var(--serif); font-size: clamp(2.4rem, 6vw, 4.5rem); line-height: 1.05; font-weight: 700; margin-bottom: 1.5rem; color: var(--white); }
+    .page-hero h1 em { font-style: italic; color: var(--ember-light); }
+    .page-hero .lead { font-size: 1.05rem; color: rgba(255,255,255,0.5); font-weight: 300; line-height: 1.85; max-width: 600px; margin-bottom: 2.5rem; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { padding: 1rem 2rem; background: var(--ember); color: var(--white); font-family: var(--sans); font-weight: 500; font-size: 0.95rem; text-decoration: none; border-radius: 2px; transition: background 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn-primary:hover { background: var(--ember-light); }
+    .btn-ghost-white { padding: 1rem 2rem; background: transparent; color: rgba(255,255,255,0.6); font-family: var(--sans); font-size: 0.88rem; text-decoration: none; border-radius: 2px; border: 1px solid rgba(255,255,255,0.15); transition: all 0.2s; }
+    .btn-ghost-white:hover { border-color: rgba(255,255,255,0.4); color: var(--white); }
+
+    /* DIAGNOSTIC */
+    .section-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ember); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; line-height: 1.15; margin-bottom: 1rem; }
+    .section-title em { font-style: italic; color: var(--ember); }
+
+    /* PROBLÈME */
+    .problem-section { padding: 5rem 6vw; background: var(--bg2); }
+    .problem-inner { max-width: 1100px; margin: 0 auto; }
+    .pain-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    @media (max-width: 768px) { .pain-grid { grid-template-columns: 1fr; } }
+    .pain-card { background: var(--white); padding: 1.75rem; border-left: 3px solid var(--ember); border-radius: 0 2px 2px 0; }
+    .pain-card p { font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: var(--ink); line-height: 1.6; margin-bottom: 0.75rem; }
+    .pain-card small { font-size: 0.8rem; color: var(--ink3); line-height: 1.6; font-weight: 300; }
+
+    /* CE QU'ON CONSTRUIT */
+    .build-section { padding: 5rem 6vw; max-width: 1100px; margin: 0 auto; }
+    .build-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-top: 3rem; }
+    @media (max-width: 768px) { .build-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .build-list { list-style: none; }
+    .build-list li { padding: 1.1rem 0; border-bottom: 1px solid rgba(28,26,23,0.07); display: flex; align-items: flex-start; gap: 1rem; }
+    .build-list li:last-child { border-bottom: none; }
+    .build-num { font-family: var(--mono); font-size: 0.62rem; color: var(--ember); flex-shrink: 0; padding-top: 0.2rem; }
+    .build-list li h4 { font-size: 0.92rem; font-weight: 500; margin-bottom: 0.25rem; color: var(--ink); }
+    .build-list li p { font-size: 0.82rem; color: var(--ink3); line-height: 1.6; font-weight: 300; }
+    .build-right { background: var(--ink); padding: 2.5rem; border-radius: 2px; }
+    .build-right h3 { font-family: var(--serif); font-size: 1.3rem; color: var(--white); margin-bottom: 1.25rem; }
+    .modele-item { padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .modele-item:last-child { border-bottom: none; }
+    .modele-item .m-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ember-light); margin-bottom: 0.3rem; }
+    .modele-item p { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; font-weight: 300; }
+    .modele-note { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.06); font-size: 0.78rem; color: rgba(255,255,255,0.25); font-family: var(--mono); line-height: 1.7; }
+
+    /* PROCESSUS */
+    .process-section { background: var(--bg2); padding: 5rem 6vw; }
+    .process-inner { max-width: 1100px; margin: 0 auto; }
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    @media (max-width: 768px) { .process-steps { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .process-steps { grid-template-columns: 1fr; } }
+    .step { background: var(--white); padding: 1.75rem; border-radius: 2px; border: 1px solid rgba(28,26,23,0.07); position: relative; }
+    .step-num { font-family: var(--serif); font-size: 3rem; color: rgba(196,94,42,0.15); line-height: 1; margin-bottom: 1rem; }
+    .step h4 { font-size: 0.92rem; font-weight: 500; margin-bottom: 0.4rem; }
+    .step p { font-size: 0.82rem; color: var(--ink3); line-height: 1.65; font-weight: 300; }
+
+    /* CTA */
+    .page-cta { background: var(--ember); padding: 5rem 6vw; text-align: center; }
+    .page-cta h2 { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--white); font-weight: 700; margin-bottom: 0.75rem; }
+    .page-cta h2 em { font-style: italic; }
+    .page-cta p { font-size: 0.95rem; color: rgba(255,255,255,0.75); max-width: 480px; margin: 0 auto 2rem; line-height: 1.7; font-weight: 300; }
+    .btn-white { padding: 1rem 2rem; background: var(--white); color: var(--ember); font-family: var(--sans); font-weight: 500; font-size: 0.95rem; text-decoration: none; border-radius: 2px; transition: opacity 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn-white:hover { opacity: 0.9; }
+
+    footer { background: var(--ink); padding: 1.5rem 6vw; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; max-width: 1100px; margin: 0 auto; }
+    .footer-logo { font-family: var(--serif); font-weight: 700; font-size: 1rem; color: var(--white); text-decoration: none; }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.72rem; color: rgba(255,255,255,0.25); text-decoration: none; font-family: var(--mono); letter-spacing: 0.06em; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--ember-light); }
+    .footer-copy { font-size: 0.68rem; color: rgba(255,255,255,0.12); font-family: var(--mono); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">CustomYourLife<span>Créateur de Liberté</span></a>
+  <div class="nav-links">
+    <a href="multipotentiels.html">Multipotentiels</a>
+    <a href="monetise.html" class="active">Créateurs</a>
+    <a href="cle-en-main.html">Clé en main</a>
+    <a href="https://calendly.com/customyourlife/call-decouverte-offert-15-min" target="_blank" class="nav-cta">Appel offert →</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-inner">
+    <p class="breadcrumb"><a href="index.html">Accueil</a> › <span>Monétise ton audience</span></p>
+    <p class="page-tag">— Créateurs de contenu</p>
+    <h1>Tu as une audience.<br>Tu n'as pas encore<br>un <em>business</em>.</h1>
+    <p class="lead">Tu postes, tu crées, tu engages. Peut-être depuis des mois. Mais à la fin du mois, les revenus ne sont pas là. Le problème n'est pas ton contenu — il est dans l'absence d'un système de conversion derrière.</p>
+    <div class="hero-actions">
+      <a href="#audit" class="btn-primary">Démarrer avec l'Audit Stratégique →</a>
+      <a href="#comment" class="btn-ghost-white">Voir comment ça marche</a>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLÈME -->
+<section class="problem-section">
+  <div class="problem-inner">
+    <p class="section-label">Le vrai problème</p>
+    <h2 class="section-title">Le contenu attire.<br>Le <em>système</em> convertit.</h2>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <p>"Je poste régulièrement, j'ai de l'engagement, des abonnés qui me suivent depuis longtemps. Mais quand j'essaie de vendre quelque chose, le silence est pesant."</p>
+        <small>L'audience qui consomme du contenu gratuit n'est pas automatiquement une audience qui achète. Ce n'est pas un problème de taille — c'est un problème de structure d'offre et de parcours client.</small>
+      </div>
+      <div class="pain-card">
+        <p>"Je sais que je pourrais vivre de ce que je fais, mais je ne sais pas par où commencer. Créer un produit ? Proposer du coaching ? Faire de l'affiliation ? Je me perds."</p>
+        <small>Le bon modèle de monétisation dépend de ton audience, de ton énergie, et de ce que tu es réellement prêt(e) à délivrer. Il n'y a pas de réponse universelle — mais il y a la bonne pour toi.</small>
+      </div>
+      <div class="pain-card">
+        <p>"J'ai essayé de vendre une formation, mais la mise en place technique m'a découragé avant même d'avoir lancé. Je ne suis pas développeur."</p>
+        <small>La technique ne devrait pas être ton problème. C'est exactement pour ça que j'interviens : je construis l'infrastructure pendant que tu continues à créer.</small>
+      </div>
+      <div class="pain-card">
+        <p>"J'ai peur de décevoir mon audience en 'vendant' quelque chose. J'ai passé du temps à construire une relation de confiance et je ne veux pas la briser."</p>
+        <small>Vendre à une audience qui te fait confiance n'est pas une trahison — c'est l'évolution naturelle. La condition : que l'offre soit alignée avec ce qu'ils attendent de toi. C'est ça qu'on construit ensemble.</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CE QU'ON CONSTRUIT -->
+<section class="build-section" id="comment">
+  <p class="section-label">Ce qu'on construit ensemble</p>
+  <h2 class="section-title">Un écosystème de<br>revenus <em>autour</em> de toi</h2>
+  <div class="build-grid">
+    <ul class="build-list">
+      <li>
+        <span class="build-num">01</span>
+        <div><h4>L'offre</h4><p>On identifie ce que ton audience est prête à payer, et on structure une offre cohérente avec ta façon de créer et ton niveau d'énergie disponible.</p></div>
+      </li>
+      <li>
+        <span class="build-num">02</span>
+        <div><h4>La page de vente</h4><p>Une page claire, bien rédigée, qui convertit — sans jargon marketing, sans fausse promesse. En cohérence avec ton ton et ton univers.</p></div>
+      </li>
+      <li>
+        <span class="build-num">03</span>
+        <div><h4>Le tunnel de vente</h4><p>Le parcours qui amène un abonné de "je te suis" à "je t'achète" — automatisé, mesurable, et qui tourne sans que tu y passes ta journée.</p></div>
+      </li>
+      <li>
+        <span class="build-num">04</span>
+        <div><h4>Les outils IA</h4><p>Automatisation du contenu, génération d'emails, analyse des performances — les outils qui multiplient ton impact sans multiplier ton temps de travail.</p></div>
+      </li>
+      <li>
+        <span class="build-num">05</span>
+        <div><h4>Le système email</h4><p>Une liste, une séquence de bienvenue, et les bases d'un nurturing qui transforme les nouveaux abonnés en acheteurs potentiels — en pilote automatique.</p></div>
+      </li>
+    </ul>
+    <div class="build-right">
+      <h3>Le modèle de collaboration</h3>
+      <div class="modele-item">
+        <p class="m-label">Option A — Setup fixe</p>
+        <p>Je construis l'écosystème complet en 2 semaines. Tu l'actives et tu le gères. Tarif fixe à définir ensemble selon la complexité du projet.</p>
+      </div>
+      <div class="modele-item">
+        <p class="m-label">Option B — Partenariat</p>
+        <p>Je co-construis l'offre avec toi et je participe au lancement. En échange : un pourcentage sur les ventes générées. À définir selon le projet.</p>
+      </div>
+      <div class="modele-item">
+        <p class="m-label">Option C — Accompagnement continu</p>
+        <p>On travaille ensemble sur la durée : itérations sur l'offre, optimisation du tunnel, nouvelles campagnes. Format mensuel.</p>
+      </div>
+      <p class="modele-note">Le bon modèle dépend de ta situation et de tes objectifs. On le définit ensemble lors de l'Audit Stratégique.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSUS -->
+<section class="process-section">
+  <div class="process-inner">
+    <p class="section-label">Comment ça se passe</p>
+    <h2 class="section-title">Du formulaire au<br>premier <em>revenu</em></h2>
+    <div class="process-steps">
+      <div class="step">
+        <p class="step-num">01</p>
+        <h4>Le formulaire de qualification</h4>
+        <p>Tu remplis un formulaire détaillé : ta niche, ta plateforme, ta taille d'audience, tes objectifs, ton budget indicatif. Je lis tout avant qu'on se parle.</p>
+      </div>
+      <div class="step">
+        <p class="step-num">02</p>
+        <h4>L'Audit Stratégique — 97€</h4>
+        <p>1h ensemble pour analyser ta situation en profondeur et définir la stratégie de monétisation adaptée à ton audience. Tu repars avec un plan d'action concret, même si on ne travaille pas ensemble.</p>
+      </div>
+      <div class="step">
+        <p class="step-num">03</p>
+        <h4>La construction</h4>
+        <p>Si tu choisis de lancer avec moi, les 97€ de l'audit sont déduits de ta prestation. Je construis l'écosystème pendant que tu continues à créer. Délai : 3 à 4 semaines.</p>
+      </div>
+      <div class="step">
+        <p class="step-num">04</p>
+        <h4>Le lancement</h4>
+        <p>On active ensemble, je reste disponible pour ajuster selon les premiers résultats. Tu as un système qui tourne — et une base pour scaler.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIT -->
+<section style="padding:5rem 6vw; background:var(--bg2);" id="audit">
+  <div style="max-width:680px; margin:0 auto; text-align:center;">
+    <p class="section-label" style="justify-content:center; display:flex;">Par où commencer</p>
+    <h2 class="section-title">L'Audit Stratégique<br><em>sur-mesure</em></h2>
+    <div style="background:var(--white); border:1px solid rgba(28,26,23,0.08); border-top:3px solid var(--ember); padding:2.5rem; margin-top:2rem; text-align:left;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
+        <div>
+          <p style="font-family:var(--serif); font-size:1.4rem; font-weight:700; margin-bottom:0.25rem;">Audit Stratégique · 1h</p>
+          <p style="font-family:var(--mono); font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink3);">Analyse complète de ta situation · Plan d'action livré</p>
+        </div>
+        <div style="text-align:right;">
+          <p style="font-family:var(--mono); font-size:0.72rem; color:var(--ink3); text-decoration:line-through;">197€</p>
+          <p style="font-family:var(--serif); font-size:2rem; font-weight:700; color:var(--ember); line-height:1;">97€</p>
+          <p style="font-family:var(--mono); font-size:0.6rem; color:var(--ember); letter-spacing:0.1em; text-transform:uppercase;">Offre de lancement</p>
+        </div>
+      </div>
+      <ul style="list-style:none; margin-bottom:1.75rem;">
+        <li style="padding:0.5rem 0; border-bottom:1px solid rgba(28,26,23,0.06); font-size:0.88rem; color:var(--ink2); display:flex; gap:0.6rem;"><span style="color:var(--ember);">→</span> Analyse de ton audience, ta niche et tes objectifs</li>
+        <li style="padding:0.5rem 0; border-bottom:1px solid rgba(28,26,23,0.06); font-size:0.88rem; color:var(--ink2); display:flex; gap:0.6rem;"><span style="color:var(--ember);">→</span> Identification du meilleur modèle de monétisation pour toi</li>
+        <li style="padding:0.5rem 0; border-bottom:1px solid rgba(28,26,23,0.06); font-size:0.88rem; color:var(--ink2); display:flex; gap:0.6rem;"><span style="color:var(--ember);">→</span> Stratégie d'offre, de tunnel et de contenu adaptée</li>
+        <li style="padding:0.5rem 0; font-size:0.88rem; color:var(--ink2); display:flex; gap:0.6rem;"><span style="color:var(--ember);">→</span> Plan d'action écrit livré après la session</li>
+      </ul>
+      <div style="background:var(--ember-pale); border-left:3px solid var(--ember); padding:1rem 1.25rem; margin-bottom:1.75rem;">
+        <p style="font-size:0.85rem; color:var(--ink2); line-height:1.65;">✓ <strong>Ces 97€ sont déduits de ta prestation</strong> si tu choisis de lancer ton projet avec moi. Si on ne travaille pas ensemble, tu repars avec un plan d'action complet et actionnable.</p>
+      </div>
+      <a href="https://tally.so/r/rjqdvv" target="_blank" class="btn-primary" style="width:100%; justify-content:center; display:flex;">Remplir le formulaire de qualification →</a>
+      <p style="font-family:var(--mono); font-size:0.65rem; color:var(--ink3); text-align:center; margin-top:0.75rem; letter-spacing:0.08em;">Je reviens vers toi sous 48h pour fixer la date de l'audit</p>
+    </div>
+  </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="page-cta">
+  <h2>Prêt(e) à transformer<br>ton audience en <em>revenus</em> ?</h2>
+  <p>Commence par le formulaire de qualification — je reviens vers toi sous 48h pour fixer la date de l'Audit Stratégique.</p>
+  <a href="https://tally.so/r/rjqdvv" target="_blank" class="btn-white">Remplir le formulaire →</a>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">CustomYourLife</a>
+    <div class="footer-links">
+      <a href="multipotentiels.html">Multipotentiels</a>
+      <a href="monetise.html">Créateurs</a>
+      <a href="cle-en-main.html">Clé en main</a>
+      <a href="diagnostic.html">Diagnostic</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="mailto:contact@customyourlife.com">Contact</a>
+    </div>
+    <p class="footer-copy">© 2026 CustomYourLife</p>
+  </div>
+</footer>
+
+</body>
+</html>

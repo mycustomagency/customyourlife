@@ -589,11 +589,12 @@ function showResult() {
           <a href="https://calendly.com/customyourlife/call-decouverte-offert-15-min" target="_blank" class="btn-cta">Réserver mon call offert →</a>
           <button class="btn-pdf" onclick="exportPDF('${computedProfileKey}')">⬇ Télécharger mon profil en PDF</button>
         </div>
-        <div class="share-section" style="margin-top:2rem">
-          <p class="share-label">Partage ce diagnostic</p>
+        <div class="share-section" style="margin-top:2.5rem; padding-top:2rem; border-top:1px solid rgba(255,255,255,0.08);">
+          <p style="font-family:var(--serif); font-style:italic; font-size:1.05rem; color:rgba(255,255,255,0.7); margin-bottom:0.5rem; line-height:1.6;">Tu connais quelqu'un qui se reconnaîtrait dans ce profil ?</p>
+          <p style="font-size:0.82rem; color:rgba(255,255,255,0.35); margin-bottom:1.25rem; font-weight:300; line-height:1.6;">Partage-lui le diagnostic — c'est gratuit, ça prend 5 minutes, et ça peut vraiment changer quelque chose.</p>
           <div class="share-buttons">
-            <button class="share-btn share-fb" id="share-fb">📘 Facebook</button>
-            <button class="share-btn share-wa" id="share-wa">💬 WhatsApp</button>
+            <button class="share-btn share-fb" id="share-fb">📘 Partager sur Facebook</button>
+            <button class="share-btn share-wa" id="share-wa">💬 Envoyer sur WhatsApp</button>
             <button class="share-btn share-copy" id="share-copy">🔗 Copier le lien</button>
           </div>
           <p class="copy-confirm" id="copy-confirm">✓ Lien copié !</p>
@@ -658,13 +659,16 @@ document.getElementById('btnReveal').addEventListener('click', () => {
 // Partage
 document.addEventListener('click', function(e) {
   if(e.target.id === 'share-fb') {
+    const profileName = PROFILES[computedProfileKey] ? PROFILES[computedProfileKey].name : 'mon profil';
     const url = encodeURIComponent('https://customyourlife.com/diagnostic.html');
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    const text = encodeURIComponent(`Je viens de découvrir que je suis "${profileName}" grâce au diagnostic CustomYourLife — et c'est d'une précision bluffante. 5 minutes pour révéler ton profil d'entrepreneur 👇`);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
   }
   if(e.target.id === 'share-wa') {
+    const profileName = PROFILES[computedProfileKey] ? PROFILES[computedProfileKey].name : 'mon profil';
     const url = encodeURIComponent('https://customyourlife.com/diagnostic.html');
-    const text = encodeURIComponent('Je viens de découvrir mon profil d\'entrepreneur sur CustomYourLife — c\'est bluffant ! Fais le diagnostic gratuit 👇');
-    window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+    const text = encodeURIComponent(`Je viens de découvrir que je suis "${profileName}" grâce au diagnostic CustomYourLife — bluffant de précision ! Fais-le toi aussi, c'est gratuit et ça prend 5 min 👇 `);
+    window.open(`https://wa.me/?text=${text}${url}`, '_blank');
   }
   if(e.target.id === 'share-copy') {
     navigator.clipboard.writeText('https://customyourlife.com/diagnostic.html').then(() => {
