@@ -46,22 +46,17 @@
     .diag-stat strong { display: block; font-family: var(--serif); font-size: 1.6rem; color: var(--ember); }
     .diag-stat span { font-size: 0.75rem; color: var(--ink3); font-family: var(--mono); letter-spacing: 0.08em; }
 
-    /* LEAD CAPTURE */
-    #step-lead {
+    /* BOUTON DÉMARRER (remplace le formulaire lead initial) */
+    #step-start {
       max-width: 480px; margin: 0 auto;
       background: var(--white); padding: 2.5rem;
       border: 1px solid rgba(28,26,23,0.08);
       border-top: 3px solid var(--ember);
+      text-align: center;
     }
-    .lead-title { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 0.5rem; font-weight: 600; }
-    .lead-sub { font-size: 0.85rem; color: var(--ink3); margin-bottom: 1.5rem; line-height: 1.6; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
-    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
-    .fg label { display: block; font-size: 0.72rem; font-weight: 500; color: var(--ink2); margin-bottom: 0.3rem; letter-spacing: 0.06em; text-transform: uppercase; font-family: var(--mono); }
-    .fg input { width: 100%; padding: 0.75rem 1rem; border: 1px solid rgba(28,26,23,0.15); background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 0.9rem; outline: none; transition: border-color 0.2s; border-radius: 2px; }
-    .fg input:focus { border-color: var(--ember); }
-    .fg input::placeholder { color: var(--ink3); }
-    .btn-start { width: 100%; padding: 1rem; background: var(--ember); color: var(--white); font-weight: 500; font-size: 1rem; border: none; cursor: pointer; border-radius: 2px; transition: background 0.2s; font-family: var(--sans); margin-top: 0.75rem; letter-spacing: 0.03em; }
+    .start-title { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 0.5rem; font-weight: 600; }
+    .start-sub { font-size: 0.85rem; color: var(--ink3); margin-bottom: 1.5rem; line-height: 1.6; }
+    .btn-start { width: 100%; padding: 1rem; background: var(--ember); color: var(--white); font-weight: 500; font-size: 1rem; border: none; cursor: pointer; border-radius: 2px; transition: background 0.2s; font-family: var(--sans); letter-spacing: 0.03em; }
     .btn-start:hover { background: var(--ember-light); }
     .lead-note { font-size: 0.72rem; color: var(--ink3); text-align: center; margin-top: 0.75rem; font-family: var(--mono); }
 
@@ -110,6 +105,32 @@
     .btn-next:hover { background: var(--ember-light); }
     .btn-next:disabled { background: rgba(28,26,23,0.15); color: var(--ink3); cursor: not-allowed; }
 
+    /* LEAD GATE — affiché AVANT le résultat */
+    #step-lead {
+      display: none;
+      max-width: 520px; margin: 4rem auto 0;
+      background: var(--white); padding: 2.5rem;
+      border: 1px solid rgba(28,26,23,0.08);
+      border-top: 3px solid var(--ember);
+      animation: fadeIn 0.5s ease;
+    }
+    .lead-unlock { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ember); margin-bottom: 0.75rem; }
+    .lead-title { font-family: var(--serif); font-size: 1.6rem; margin-bottom: 0.5rem; font-weight: 700; line-height: 1.2; }
+    .lead-title em { font-style: italic; color: var(--ember); }
+    .lead-sub { font-size: 0.875rem; color: var(--ink2); margin-bottom: 1.75rem; line-height: 1.7; }
+    .lead-teaser { background: var(--ember-pale); border-left: 3px solid var(--ember); padding: 1rem 1.25rem; margin-bottom: 1.75rem; border-radius: 0 2px 2px 0; }
+    .lead-teaser p { font-size: 0.82rem; color: var(--ink2); font-family: var(--mono); line-height: 1.6; }
+    .lead-teaser strong { color: var(--ember); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
+    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+    .fg label { display: block; font-size: 0.72rem; font-weight: 500; color: var(--ink2); margin-bottom: 0.3rem; letter-spacing: 0.06em; text-transform: uppercase; font-family: var(--mono); }
+    .fg input { width: 100%; padding: 0.75rem 1rem; border: 1px solid rgba(28,26,23,0.15); background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 0.9rem; outline: none; transition: border-color 0.2s; border-radius: 2px; }
+    .fg input:focus { border-color: var(--ember); }
+    .fg input::placeholder { color: var(--ink3); }
+    .btn-reveal { width: 100%; padding: 1rem; background: var(--ember); color: var(--white); font-weight: 500; font-size: 1rem; border: none; cursor: pointer; border-radius: 2px; transition: background 0.2s; font-family: var(--sans); margin-top: 0.75rem; letter-spacing: 0.03em; }
+    .btn-reveal:hover { background: var(--ember-light); }
+    .lead-note { font-size: 0.72rem; color: var(--ink3); text-align: center; margin-top: 0.75rem; font-family: var(--mono); }
+
     /* RÉSULTAT */
     #step-result { display: none; max-width: 680px; margin: 0 auto; padding: 0 0 5rem; animation: fadeIn 0.6s ease; }
     .result-header { text-align: center; padding: 3rem 2rem; background: var(--ink); color: var(--white); margin-bottom: 2rem; border-radius: 2px; position: relative; overflow: hidden; }
@@ -139,12 +160,21 @@
     .result-cta p { font-size: 0.9rem; color: rgba(255,255,255,0.55); margin-bottom: 1.75rem; line-height: 1.7; max-width: 440px; margin-left: auto; margin-right: auto; }
     .btn-cta { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem; background: var(--ember); color: var(--white); font-weight: 500; font-size: 0.95rem; text-decoration: none; border-radius: 2px; transition: background 0.2s; border: none; cursor: pointer; font-family: var(--sans); }
     .btn-cta:hover { background: var(--ember-light); }
-    .result-share { margin-top: 1.25rem; font-size: 0.78rem; color: rgba(255,255,255,0.3); font-family: var(--mono); }
 
-    @media (max-width: 600px) {
-      .diag-hero { padding: 6rem 5vw 2rem; }
-      #step-quiz, #step-result { padding: 0 0 3rem; }
+    /* BOUTON PDF */
+    .btn-pdf {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.75rem;
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.25);
+      font-family: var(--sans); font-size: 0.88rem; font-weight: 500;
+      cursor: pointer; border-radius: 2px; transition: all 0.2s;
+      margin-top: 1rem;
     }
+    .btn-pdf:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
+    .cta-actions { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-bottom: 1.75rem; }
+
     .share-label { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink3); margin-bottom: 1rem; }
     .share-buttons { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
     .share-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.25rem; border-radius: 2px; font-size: 0.82rem; font-weight: 500; text-decoration: none; transition: opacity 0.2s; cursor: pointer; border: none; font-family: var(--sans); }
@@ -165,8 +195,30 @@
 
     .error-msg { color: var(--ember); font-size: 0.8rem; font-family: var(--mono); margin-top: 0.5rem; display: none; }
     .error-msg.show { display: block; }
+
+    @media (max-width: 600px) {
+      .diag-hero { padding: 6rem 5vw 2rem; }
+      #step-quiz, #step-result { padding: 0 0 3rem; }
+    }
+
+    /* STYLES IMPRESSION PDF */
+    @media print {
+      nav, footer, .result-cta, .share-section, .btn-pdf, #step-start, #step-quiz, #step-lead { display: none !important; }
+      body { background: white; color: #1C1A17; }
+      #step-result { display: block !important; padding: 0; }
+      .result-header { background: #1C1A17 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .result-card { break-inside: avoid; border: 1px solid #ddd; }
+      .croyance-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .tag-force, .tag-defi { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
   </style>
-<script type="text/javascript">     (function(c,l,a,r,i,t,y){         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);     })(window, document, "clarity", "script", "x53r4uh9lh"); </script>
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x53r4uh9lh");
+  </script>
 </head>
 <body>
 
@@ -188,20 +240,15 @@
     </div>
   </div>
 
-  <!-- ÉTAPE 1 : LEAD CAPTURE -->
-  <div id="step-lead">
-    <h2 class="lead-title">Commence par te présenter</h2>
-    <p class="lead-sub">Ton profil personnalisé s'affichera directement après le questionnaire.</p>
-    <div class="form-row">
-      <div class="fg"><label>Prénom</label><input type="text" id="l-name" placeholder="Marie"></div>
-      <div class="fg"><label>Email</label><input type="email" id="l-email" placeholder="marie@email.com"></div>
-    </div>
-    <p class="error-msg" id="lead-error">Merci de renseigner ton prénom et ton email.</p>
+  <!-- ÉTAPE 0 : DÉMARRAGE (sans formulaire) -->
+  <div id="step-start">
+    <h2 class="start-title">Prêt(e) à découvrir ton profil ?</h2>
+    <p class="start-sub">22 questions · Résultat personnalisé immédiat · 100% gratuit</p>
     <button class="btn-start" id="btnStart">Démarrer mon diagnostic →</button>
     <p class="lead-note">Gratuit · Résultat immédiat · Sans spam</p>
   </div>
 
-  <!-- ÉTAPE 2 : QUESTIONNAIRE -->
+  <!-- ÉTAPE 1 : QUESTIONNAIRE -->
   <div id="step-quiz">
     <div style="padding-top: 2rem;">
       <div class="progress-wrap">
@@ -219,61 +266,51 @@
     </div>
   </div>
 
+  <!-- ÉTAPE 2 : LEAD GATE (avant résultat) -->
+  <div id="step-lead">
+    <p class="lead-unlock">✓ Diagnostic terminé — ton profil est prêt</p>
+    <h2 class="lead-title">Où dois-je t'envoyer<br>ton profil <em>complet</em> ?</h2>
+    <p class="lead-sub">Tu es à une étape de découvrir ton profil d'entrepreneur, tes forces cachées, ta croyance limitante dominante et ton plan d'action personnalisé.</p>
+    <div class="lead-teaser">
+      <p>Tu vas recevoir : <strong>ton profil parmi 8 archétypes</strong> · tes forces naturelles · ta croyance limitante · ton plan d'action en 5 étapes · les business models faits pour toi</p>
+    </div>
+    <div class="form-row">
+      <div class="fg"><label>Prénom</label><input type="text" id="l-name" placeholder="Marie"></div>
+      <div class="fg"><label>Email</label><input type="email" id="l-email" placeholder="marie@email.com"></div>
+    </div>
+    <p class="error-msg" id="lead-error">Merci de renseigner ton prénom et ton email.</p>
+    <button class="btn-reveal" id="btnReveal">Voir mon profil maintenant →</button>
+    <p class="lead-note">Gratuit · Sans spam · Résultat immédiat</p>
+  </div>
+
   <!-- ÉTAPE 3 : RÉSULTAT -->
   <div id="step-result"></div>
 
 </div>
 
 <script>
-// Pre-fill from URL params
-const urlParams = new URLSearchParams(window.location.search);
-const prefilledName = urlParams.get('name') || '';
-const prefilledEmail = urlParams.get('email') || '';
-if(prefilledName) document.getElementById('l-name').value = prefilledName;
-if(prefilledEmail) document.getElementById('l-email').value = prefilledEmail;
-
-// Auto-skip lead step if both params present
-if(prefilledName && prefilledEmail) {
-  userName = prefilledName;
-  userEmail = prefilledEmail;
-  document.getElementById('step-lead').style.display = 'none';
-  document.getElementById('step-quiz').style.display = 'block';
-  renderQuestion(0);
-}
+// ─── DONNÉES ───────────────────────────────────────────────────────────────
 
 const QUESTIONS = [
-  // PARTIE 1 — Qui tu es
   { section: "Qui tu es", sectionTitle: "Parlons de ta situation actuelle", q: "Tu te situes où dans ta vie professionnelle en ce moment ?", opts: ["Salarié(e) qui rêve d'autre chose", "En reconversion ou entre deux projets", "Déjà indépendant(e) mais ça ne décolle pas", "Plusieurs projets en cours, aucun abouti"] },
   { q: "Dans quelle tranche d'âge te situes-tu ?", opts: ["20-30 ans", "31-40 ans", "41-50 ans", "50 ans et plus"] },
   { q: "Comment décrirais-tu ta situation financière actuelle ?", opts: ["Stable mais je veux plus de liberté", "Juste suffisante, j'ai besoin de changer ça vite", "Difficile, l'urgence est réelle", "Correcte mais je veux construire quelque chose de solide"] },
-
-  // PARTIE 2 — Fonctionnement naturel
   { section: "Ton fonctionnement", sectionTitle: "Comment tu fonctionnes naturellement", q: "Quand un nouveau projet t'enthousiasme :", opts: ["Je fonce immédiatement sans trop réfléchir", "J'analyse tout avant de commencer", "Je fais un plan détaillé", "Je rêve du projet mais passe rarement à l'action"] },
   { q: "Après quelques semaines sur un projet :", opts: ["Je suis toujours autant motivé(e)", "Mon intérêt commence à diminuer", "Je cherche déjà autre chose", "Ça dépend si je vois des résultats concrets"] },
   { q: "Tu travailles mieux :", opts: ["Seul(e), à mon rythme, sans contrainte", "Avec une structure et des deadlines claires", "Entouré(e) d'une communauté qui m'inspire", "En alternant phases d'isolement et d'échanges"] },
-
-  // PARTIE 3 — Rapport à l'argent
   { section: "Argent & croyances", sectionTitle: "Ton rapport à l'argent et à la sécurité", q: "La phrase qui te ressemble le plus :", opts: ["\"Je veux être libre financièrement avant tout\"", "\"Je veux me sentir en sécurité\"", "\"Je veux vivre de ce qui me passionne\"", "\"Je veux avoir un impact avant de penser à l'argent\""] },
   { q: "Quand il faut investir sur toi-même :", opts: ["J'y vais facilement si ça me parle", "J'hésite longtemps avant de décider", "J'attends d'être certain(e) du résultat", "Je reporte toujours à plus tard"] },
   { q: "Face à l'argent, ta croyance la plus profonde c'est :", opts: ["\"L'argent ça se mérite, ça se construit\"", "\"L'argent c'est compliqué pour moi\"", "\"Je ne suis pas fait(e) pour être riche\"", "\"L'argent viendra si je fais les bonnes choses\""] },
-
-  // PARTIE 4 — Blocages
   { section: "Tes blocages", sectionTitle: "Ce qui te freine vraiment", q: "Ce qui te freine le plus aujourd'hui :", opts: ["Je manque de clarté, je ne sais pas quoi choisir", "Je manque de confiance en moi et en ma légitimité", "Je me disperse trop, j'ai trop d'idées", "Je manque de temps ou d'énergie"] },
   { q: "Quand tu vois quelqu'un réussir dans ton domaine :", opts: ["Ça m'inspire, je me dis que c'est possible", "Je me compare et je me sens en retard", "Je me dis que j'aurais pu faire pareil", "Je cherche ce qu'ils ont que je n'ai pas"] },
   { q: "Ton plus grand saboteur intérieur c'est :", opts: ["La peur du jugement des autres", "Le syndrome de l'imposteur", "La procrastination et le perfectionnisme", "L'éparpillement et l'inconstance"] },
-
-  // PARTIE 5 — Capital caché
   { section: "Ton capital caché", sectionTitle: "Ce que tu possèdes déjà sans le voir", q: "Sans fausse modestie, tu es naturellement bon(ne) pour :", opts: ["Créer du contenu, écrire, communiquer", "Analyser, structurer, organiser", "Convaincre, vendre, connecter les gens", "Apprendre vite et m'adapter à tout"] },
   { q: "Dans ta vie tu as déjà :", opts: ["Développé une vraie expertise dans un domaine", "Accumulé des expériences très variées", "Aidé des gens à résoudre des problèmes concrets", "Créé ou lancé quelque chose from scratch"] },
   { q: "Les gens te sollicitent naturellement pour :", opts: ["Des conseils et ton avis", "De l'aide technique ou pratique", "De l'écoute et du soutien", "Des idées et de la créativité"] },
-
-  // PARTIE 6 — Vision & action
   { section: "Ta vision", sectionTitle: "Où tu veux aller et comment tu passes à l'action", q: "Dans 3 ans, tu veux surtout :", opts: ["Être libre géographiquement, travailler d'où je veux", "Avoir créé quelque chose qui m'appartient vraiment", "Aider un maximum de personnes et avoir un impact", "Avoir une stabilité financière solide et durable"] },
   { q: "Combien de projets as-tu lancés sans les terminer ?", opts: ["Aucun ou très peu, je vais au bout", "Quelques-uns, j'ai mes raisons", "Beaucoup, c'est mon pattern", "Je préfère ne pas compter 😅"] },
   { q: "Quand tu as une idée :", opts: ["Je commence immédiatement", "Je fais beaucoup de recherches d'abord", "Je demande l'avis des autres", "Je la garde longtemps dans ma tête"] },
   { q: "Ta relation au web et au digital :", opts: ["Je maîtrise, j'ai déjà des bases solides", "Je me débrouille mais j'ai des lacunes", "Je suis débutant(e), tout est à apprendre", "J'ai essayé des choses mais sans résultats"] },
-
-  // PARTIE 7 — Persona
   { section: "La touche finale", sectionTitle: "Pour affiner ton profil", q: "Ce qui compte le plus pour toi dans une activité :", opts: ["La liberté et l'autonomie totale", "Le sens et l'alignement avec mes valeurs", "L'impact et aider les autres", "La stabilité et la sécurité"] },
   { q: "En une phrase, tu te décrirais comme :", opts: ["Quelqu'un qui a plein d'idées mais du mal à choisir", "Quelqu'un de compétent qui doute de sa légitimité", "Quelqu'un qui recommence souvent de zéro", "Quelqu'un qui attend le bon moment qui ne vient jamais"] },
   { q: "Si ta vie était un élément naturel en ce moment, ce serait :", opts: ["🔥 Le feu — de l'énergie mais qui part dans tous les sens", "🌊 L'eau — je m'adapte mais je cherche mon lit", "🌱 La graine — le potentiel est là mais pas encore germé", "🌪️ Le vent — je bouge beaucoup mais sans ancrage"] },
@@ -378,94 +415,68 @@ const PROFILES = {
   }
 };
 
+// ─── ÉTAT ──────────────────────────────────────────────────────────────────
+
 let userName = '';
 let userEmail = '';
 let answers = new Array(22).fill(null);
 let currentQ = 0;
+let computedProfileKey = null;
+
+// ─── CALCUL PROFIL ──────────────────────────────────────────────────────────
 
 function getProfile(ans) {
   let scores = { VISIONNAIRE:0, BATISSEUR:0, EXPLORATEUR:0, CAMELEON:0, STRATEGE:0, PHOENIX:0, MULTIPOTENTIEL:0, DEBUTANT:0 };
-
-  // Q1 situation
   if(ans[0]==='C'||ans[0]==='D') scores.VISIONNAIRE+=2;
   if(ans[0]==='A') scores.DEBUTANT+=1;
   if(ans[0]==='B') scores.PHOENIX+=1;
-
-  // Q3 finances
   if(ans[2]==='B'||ans[2]==='C') { scores.PHOENIX+=2; scores.DEBUTANT+=1; }
   if(ans[2]==='A') scores.STRATEGE+=1;
-
-  // Q4 projet enthousiasme
   if(ans[3]==='A') scores.VISIONNAIRE+=2;
   if(ans[3]==='B') scores.EXPLORATEUR+=2;
   if(ans[3]==='C') scores.BATISSEUR+=1;
   if(ans[3]==='D') scores.CAMELEON+=2;
-
-  // Q5 après semaines
   if(ans[4]==='B'||ans[4]==='C') scores.VISIONNAIRE+=2;
   if(ans[4]==='A') scores.BATISSEUR+=1;
   if(ans[4]==='D') scores.STRATEGE+=1;
-
-  // Q7 rapport argent
   if(ans[6]==='A') scores.STRATEGE+=1;
   if(ans[6]==='B') scores.BATISSEUR+=1;
   if(ans[6]==='C') scores.MULTIPOTENTIEL+=1;
   if(ans[6]==='D') scores.CAMELEON+=1;
-
-  // Q8 investir
   if(ans[7]==='C'||ans[7]==='D') scores.EXPLORATEUR+=1;
   if(ans[7]==='B') scores.BATISSEUR+=1;
-
-  // Q9 croyance argent
   if(ans[8]==='B'||ans[8]==='C') scores.PHOENIX+=2;
-
-  // Q10 frein
   if(ans[9]==='A') scores.VISIONNAIRE+=1;
   if(ans[9]==='B') scores.BATISSEUR+=2;
   if(ans[9]==='C') scores.VISIONNAIRE+=2;
   if(ans[9]==='D') scores.CAMELEON+=1;
-
-  // Q12 saboteur
   if(ans[11]==='A') scores.BATISSEUR+=2;
   if(ans[11]==='B') scores.BATISSEUR+=2;
   if(ans[11]==='C') scores.EXPLORATEUR+=2;
   if(ans[11]==='D') scores.VISIONNAIRE+=2;
-
-  // Q13 talent
   if(ans[12]==='A') scores.MULTIPOTENTIEL+=1;
   if(ans[12]==='D') scores.MULTIPOTENTIEL+=2;
-
-  // Q14 expérience
   if(ans[13]==='B') scores.MULTIPOTENTIEL+=2;
   if(ans[13]==='C') scores.CAMELEON+=1;
-
-  // Q17 projets non terminés
   if(ans[16]==='C'||ans[16]==='D') scores.VISIONNAIRE+=2;
   if(ans[16]==='A') scores.BATISSEUR+=1;
-
-  // Q18 idée
   if(ans[17]==='B') scores.EXPLORATEUR+=2;
   if(ans[17]==='D') scores.CAMELEON+=2;
-
-  // Q19 digital
   if(ans[18]==='C') scores.DEBUTANT+=3;
   if(ans[18]==='D') scores.PHOENIX+=2;
   if(ans[18]==='A') scores.MULTIPOTENTIEL+=1;
-
-  // Q21 autodescription
   if(ans[20]==='A') scores.VISIONNAIRE+=3;
   if(ans[20]==='B') scores.BATISSEUR+=3;
   if(ans[20]==='C') scores.PHOENIX+=3;
   if(ans[20]==='D') scores.EXPLORATEUR+=3;
-
-  // Q22 élément naturel
   if(ans[21]==='A') scores.VISIONNAIRE+=2;
   if(ans[21]==='B') scores.CAMELEON+=2;
   if(ans[21]==='C') scores.DEBUTANT+=2;
   if(ans[21]==='D') scores.MULTIPOTENTIEL+=2;
-
   return Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
 }
+
+// ─── RENDU QUESTIONS ────────────────────────────────────────────────────────
 
 function renderQuestion(idx) {
   const q = QUESTIONS[idx];
@@ -487,7 +498,6 @@ function renderQuestion(idx) {
   });
   html += `</div></div>`;
   area.innerHTML = html;
-
   document.getElementById('progress-text').textContent = `Question ${idx+1} / 22`;
   document.getElementById('progress-fill').style.width = `${((idx+1)/22)*100}%`;
   document.getElementById('btnNext').disabled = answers[idx] === null;
@@ -503,9 +513,20 @@ function selectOption(qIdx, letter, el) {
   document.getElementById('btnNext').disabled = false;
 }
 
+// ─── LEAD GATE ──────────────────────────────────────────────────────────────
+
+function showLeadGate() {
+  // Pré-calculer le profil (sans l'afficher)
+  computedProfileKey = getProfile(answers);
+  document.getElementById('step-quiz').style.display = 'none';
+  document.getElementById('step-lead').style.display = 'block';
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ─── RÉSULTAT ────────────────────────────────────────────────────────────────
+
 function showResult() {
-  const profileKey = getProfile(answers);
-  const p = PROFILES[profileKey];
+  const p = PROFILES[computedProfileKey];
 
   const answersText = QUESTIONS.map((q,i) => {
     const letters = ['A','B','C','D'];
@@ -513,15 +534,11 @@ function showResult() {
     return `Q${i+1}: ${q.q} → ${idx >= 0 ? q.opts[idx] : 'Non répondu'}`;
   }).join('\n');
 
-  // Envoyer à Formspree
+  // Envoi Formspree
   fetch('https://formspree.io/f/xpqejwpa', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      name: userName, email: userEmail,
-      profil: p.name,
-      reponses: answersText
-    })
+    body: JSON.stringify({ name: userName, email: userEmail, profil: p.name, reponses: answersText })
   });
 
   const result = document.getElementById('step-result');
@@ -568,8 +585,11 @@ function showResult() {
       <div class="result-cta">
         <h3>Tu veux aller <em>plus loin</em> ?</h3>
         <p>Un appel de 15 minutes offert pour transformer ce profil en plan d'action concret — adapté à ta situation réelle, pas à un profil générique.</p>
-        <a href="https://calendly.com/customyourlife/call-decouverte-offert-15-min" target="_blank" class="btn-cta">Réserver mon call offert →</a>
-        <div class="share-section">
+        <div class="cta-actions">
+          <a href="https://calendly.com/customyourlife/call-decouverte-offert-15-min" target="_blank" class="btn-cta">Réserver mon call offert →</a>
+          <button class="btn-pdf" onclick="exportPDF('${computedProfileKey}')">⬇ Télécharger mon profil en PDF</button>
+        </div>
+        <div class="share-section" style="margin-top:2rem">
           <p class="share-label">Partage ce diagnostic</p>
           <div class="share-buttons">
             <button class="share-btn share-fb" id="share-fb">📘 Facebook</button>
@@ -581,21 +601,27 @@ function showResult() {
       </div>
     </div>`;
 
-  document.getElementById('step-quiz').style.display = 'none';
+  document.getElementById('step-lead').style.display = 'none';
   result.style.display = 'block';
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
-// Events
+// ─── EXPORT PDF ──────────────────────────────────────────────────────────────
+
+function exportPDF(profileKey) {
+  // On utilise window.print() avec les styles @media print déjà définis
+  // On passe par un titre de page personnalisé
+  const p = PROFILES[profileKey];
+  const originalTitle = document.title;
+  document.title = `Mon profil ${p.name} — CustomYourLife`;
+  window.print();
+  document.title = originalTitle;
+}
+
+// ─── EVENTS ──────────────────────────────────────────────────────────────────
+
 document.getElementById('btnStart').addEventListener('click', () => {
-  userName = document.getElementById('l-name').value.trim();
-  userEmail = document.getElementById('l-email').value.trim();
-  if(!userName || !userEmail) {
-    document.getElementById('lead-error').classList.add('show');
-    return;
-  }
-  document.getElementById('lead-error').classList.remove('show');
-  document.getElementById('step-lead').style.display = 'none';
+  document.getElementById('step-start').style.display = 'none';
   document.getElementById('step-quiz').style.display = 'block';
   renderQuestion(0);
   window.scrollTo({top: 0, behavior: 'smooth'});
@@ -606,7 +632,8 @@ document.getElementById('btnNext').addEventListener('click', () => {
     currentQ++;
     renderQuestion(currentQ);
   } else {
-    showResult();
+    // Dernière question → lead gate
+    showLeadGate();
   }
 });
 
@@ -617,19 +644,26 @@ document.getElementById('btnPrev').addEventListener('click', () => {
   }
 });
 
-function shareProfile() {
-  const url = encodeURIComponent('https://customyourlife.com/diagnostic.html');
-  const text = encodeURIComponent('Je viens de découvrir mon profil d\'entrepreneur sur CustomYourLife — c\'est bluffant ! Fais le diagnostic gratuit 👇');
-  return { url, text };
-}
+document.getElementById('btnReveal').addEventListener('click', () => {
+  userName = document.getElementById('l-name').value.trim();
+  userEmail = document.getElementById('l-email').value.trim();
+  if(!userName || !userEmail) {
+    document.getElementById('lead-error').classList.add('show');
+    return;
+  }
+  document.getElementById('lead-error').classList.remove('show');
+  showResult();
+});
 
+// Partage
 document.addEventListener('click', function(e) {
   if(e.target.id === 'share-fb') {
-    const { url } = shareProfile();
+    const url = encodeURIComponent('https://customyourlife.com/diagnostic.html');
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
   }
   if(e.target.id === 'share-wa') {
-    const { url, text } = shareProfile();
+    const url = encodeURIComponent('https://customyourlife.com/diagnostic.html');
+    const text = encodeURIComponent('Je viens de découvrir mon profil d\'entrepreneur sur CustomYourLife — c\'est bluffant ! Fais le diagnostic gratuit 👇');
     window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
   }
   if(e.target.id === 'share-copy') {
